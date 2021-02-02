@@ -1,17 +1,17 @@
-export default function BlogId({blog}) {
-    return (
-      <main className="main">
-        <h1 className="publisedAt">{blog.title}</h1>
-        <p>{blog.publishedAt}</p>
-        <p className="category">{blog.category &&`${blog.category.name}`}</p>
-        <div
-          dangerouslySetInnerHTML={{
-            __html: `${blog.body}`,
-          }}
-        />
-      </main>
-    );
-  }
+export default function BlogId({ blog }) {
+  return (
+    <main className="main">
+      <h1 className="title">{blog.title}</h1>
+      <p className="publisedAt">{blog.publishedAt}</p>
+      <p className="category">{blog.category && `${blog.category.name}`}</p>
+      <div
+        dangerouslySetInnerHTML={{
+          __html: `${blog.body}`,
+        }}
+      />
+    </main>
+  );
+}
   
 // 静的生成のためのパスを指定します
 export const getStaticPaths = async () => {
