@@ -3,7 +3,7 @@ export default function BlogId({ blog }) {
     <main className="main">
       <h1 className="title">{blog.title}</h1>
       <p className="publisedAt">{blog.publishedAt}</p>
-      <p className="category">カテゴリー{blog.category && `${blog.category.name}`}</p>
+      <p className="category">{blog && blog.category && `${blog.category.name}`}</p>
       <div
         dangerouslySetInnerHTML={{
           __html: `${blog.body}`,
