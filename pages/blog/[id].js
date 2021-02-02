@@ -1,8 +1,9 @@
 export default function BlogId({blog}) {
     return (
-      <main>
-        <h1>{blog.title}</h1>
+      <main className="main">
+        <h1 className="publisedAt">{blog.title}</h1>
         <p>{blog.publishedAt}</p>
+        <p className="category">{blog.category &&`${blog.category.name}`}</p>
         <div
           dangerouslySetInnerHTML={{
             __html: `${blog.body}`,
