@@ -6,7 +6,7 @@ export default async (req, res) => {
   }
   // draftKeyが下書きであることを示す
   const content = await fetch(
-    `https://kazu013.microcms.io/api/v1/blog/${req.query.slug}?fields=id&draftKey=${req.query.draftKey}`,
+    `${process.env.END_POINT}/blog${req.query.slug}?fields=id&draftKey=${req.query.draftKey}`,
     {headers:{'X-API-KEY':process.env.apiKey||''}}
   )
   .then(res => res.json()).catch(error => null);
