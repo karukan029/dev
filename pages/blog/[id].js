@@ -18,7 +18,7 @@ export const getStaticPaths = async () => {
     const key = {
       headers: {'X-API-KEY': process.env.API_KEY},
     };
-    const data = await fetch(`${process.env.END_POINT}blog`, key)
+    const data = await fetch(`${process.env.END_POINT}/blog`, key)
       .then(res => res.json())
       .catch(() => null);
     const paths = data.contents.map(content => `/blog/${content.id}`);
@@ -31,12 +31,12 @@ export const getStaticPaths = async () => {
     const key = {
       headers: {'X-API-KEY': process.env.API_KEY},
     };
-    let url = `${process.env.END_POINT}blog/${id}`;
+    let url = `${process.env.END_POINT}/blog/${id}`;
     if (context.preview){
       url += `?draftKey=${context.previewData.draftKey}`; 
     }
     const data = await fetch(
-      `${process.env.END_POINT}blog/${id}`, key
+      `${process.env.END_POINT}/blog/${id}`, key
     )
     .then(res => res.json())
     .catch(() => null);
