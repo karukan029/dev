@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
 
 export default async (req, res) => {
-  if (!res.query.slug) {
+  if (!res.query.id) {
     return res.status(404).end();
   }
   // draftKeyが下書きであることを示す
@@ -21,6 +21,6 @@ export default async (req, res) => {
     draftKey: req.query.draftKey,
   });
   // 本来の記事のパスにリダイレクト
-  res.writeHead(307,{ Location: `/${content.id}` });
+  res.writeHead(307,{ Location: `/blog/${content.id}` });
   res.end('Preview mode enabled');
 }
