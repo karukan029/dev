@@ -33,10 +33,10 @@ export const getStaticPaths = async () => {
     };
     let url = `https://kazu013.microcms.io/api/v1/blog/${id}`;
     if (context.preview){
-      url += `?draftKey=${context.previewData.draftKey}`; 
+      url += `?draftKey=${context.previewData?.draftKey}:''`; 
     }
     const data = await fetch(
-      `https://kazu013.microcms.io/api/v1/blog/${id}`, key
+      url, key
     )
     .then(res => res.json())
     .catch(() => null);
