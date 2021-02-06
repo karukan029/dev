@@ -1,13 +1,13 @@
 import fetch from 'node-fetch';
 
 export default async (req, res) => {
-  if (!res.query.id) {
+  if (!req.query.id) {
     return res.status(404).end();
   }
   // draftKeyが下書きであることを示す
   const content = await fetch(
     `https://kazu013.microcms.io/api/v1/blog/${req.query.id}?draftKey=${req.query.draftKey}`,
-    {headers:{'X-API-KEY':process.env.apiKey||''}}
+    {headers:{'X-API-KEY':process.env.API_KEY||''}}
   )
   .then(res => res.json()).catch(error => null);
 
