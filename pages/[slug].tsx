@@ -1,18 +1,3 @@
-export default function BlogId({ blog }) {
-  return (
-    <main className="main">
-      <h1 className="title">{blog.title}</h1>
-      <p className="publisedAt">{blog.publishedAt}</p>
-      <p className="category">{blog.category && `${blog.category.name}`}</p>
-      <div
-        dangerouslySetInnerHTML={{
-          __html: `${blog.body}`,
-        }}
-      />
-    </main>
-  );
-}
-
 export const getStaticProps = async (context) => {
   const slug = context.params?.slug;
   const draftKey = context.previewData?.draftKey;
