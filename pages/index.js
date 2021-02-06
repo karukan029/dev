@@ -46,7 +46,7 @@ export const getStaticProps = async () => {
   const key = {
     headers:{'X-API-KEY':process.env.API_KEY},
   };
-  const data = await fetch(`${process.env.END_POINT}/blog`,key)
+  const data = await fetch('https://kazu013.microcms.io/api/v1/blog',key)
   .then(res => res.json())
   .catch(() => null);
   return {
