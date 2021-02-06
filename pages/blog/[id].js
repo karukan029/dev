@@ -3,7 +3,7 @@ export default function BlogId({ blog }) {
     <main className="main">
       <h1 className="title">{blog.title}</h1>
       <p className="publisedAt">{blog.publishedAt}</p>
-      <p className="category">{blog && blog.category && `${blog.category.name}`}</p>
+      <p className="category">{blog.category && `${blog.category.name}`}</p>
       <div
         dangerouslySetInnerHTML={{
           __html: `${blog.body}`,
@@ -34,8 +34,8 @@ export const getStaticPaths = async () => {
     const data = await fetch(
       'https://kazu013.microcms.io/api/v1/blog/' + id, key
     )
-      .then(res => res.json())
-      .catch(() => null);
+    .then(res => res.json())
+    .catch(() => null);
     return {
       props: {
         blog: data,
