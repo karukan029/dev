@@ -1,10 +1,12 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
-import Link from 'next/link'
+import React from 'react';
+import Head from 'next/head';
+import Link from 'next/link';
+import Custom404 from './404';
+import styles from '../styles/Home.module.css';
 
-export default function Home({blog}) {
-  if(!blog){
-    return <ErrorPage/>
+const Home = ({ blog }) => {
+  if (!blog) {
+    return <Custom404 />;
   }
   return (
     <div className={styles.container}>
@@ -14,14 +16,12 @@ export default function Home({blog}) {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+        <h1 className={styles.title}>Welcome to Next.js!</h1>
         <ul>
-          {blog.map(blog => (
-            <li key={blog.id}>
-              <Link href={`blog/${blog.id}`}>
-                <a>{blog.title}</a>
+          {blog.map((contents) => (
+            <li key={contents.id}>
+              <Link href={`blog/${contents.id}`}>
+                <a>{contents.title}</a>
               </Link>
             </li>
           ))}
@@ -34,24 +34,26 @@ export default function Home({blog}) {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
+          Powered by
           <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
         </a>
       </footer>
     </div>
-  )
-}
+  );
+};
 
 export const getStaticProps = async () => {
   const key = {
-    headers:{'X-API-KEY':process.env.API_KEY},
+    headers: { 'X-API-KEY': process.env.API_KEY },
   };
-  const data = await fetch('https://kazu013.microcms.io/api/v1/blog',key)
-  .then(res => res.json())
-  .catch(() => null);
+  const data = await fetch('https://kazu013.microcms.io/api/v1/blog', key)
+    .then((res) => res.json())
+    .catch(() => null);
   return {
     props: {
       blog: data.contents,
-    }
-  }
-}
+    },
+  };
+};
+
+export default Home;
