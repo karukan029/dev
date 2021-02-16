@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { FC } from 'react';
+import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
 import Custom404 from './404';
 import styles from '../styles/Home.module.css';
 
-const Home = ({ blog }) => {
+type Props = {
+  blog: any;
+};
+
+const Home: FC<Props> = ({ blog }) => {
   if (!blog) {
     return <Custom404 />;
   }
@@ -42,7 +47,7 @@ const Home = ({ blog }) => {
   );
 };
 
-export const getStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const key = {
     headers: { 'X-API-KEY': process.env.API_KEY },
   };

@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { FC } from 'react';
+import { GetStaticPaths, GetStaticProps } from 'next';
 import fetch from 'node-fetch';
 
-const BlogId = ({ blog }) => (
+type Props = {
+  blog: any;
+};
+
+const BlogId: FC<Props> = ({ blog }) => (
   <main className="main">
     <h1 className="title">{blog.title}</h1>
     <p className="publisedAt">{blog.publishedAt}</p>
@@ -17,7 +22,7 @@ const BlogId = ({ blog }) => (
 export default BlogId;
 
 // 静的生成のためのパスを指定します
-export const getStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths = async () => {
   const key = {
     headers: { 'X-API-KEY': process.env.API_KEY },
   };
@@ -29,7 +34,7 @@ export const getStaticPaths = async () => {
 };
 
 // データをテンプレートに受け渡す部分の処理を記述します
-export const getStaticProps = async (context) => {
+export const getStaticProps: GetStaticProps = async (context) => {
   const { id } = context.params;
   const key = {
     headers: { 'X-API-KEY': process.env.API_KEY },
