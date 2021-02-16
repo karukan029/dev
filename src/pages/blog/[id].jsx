@@ -1,4 +1,5 @@
 import React from 'react';
+import fetch from 'node-fetch';
 
 const BlogId = ({ blog }) => (
   <main className="main">

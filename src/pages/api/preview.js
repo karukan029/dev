@@ -1,5 +1,6 @@
 import fetch from 'node-fetch';
 
+// eslint-disable-next-line consistent-return
 const preview = async (req, res) => {
   if (!req.query.id) {
     return res.status(404).end();
@@ -9,8 +10,8 @@ const preview = async (req, res) => {
     `https://kazu013.microcms.io/api/v1/blog/${req.query.id}?draftKey=${req.query.draftKey}`,
     { headers: { 'X-API-KEY': process.env.API_KEY || '' } },
   )
-    .then((res) => res.json())
-    .catch((error) => null);
+    .then((response) => response.json())
+    .catch((error) => error);
 
   if (!content) {
     return res.status(401).json({ message: 'Invalid slug' });
