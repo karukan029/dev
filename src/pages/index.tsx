@@ -4,6 +4,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import Custom404 from './404';
 import styles from '../styles/Home.module.css';
+import styled from 'styled-components';
 
 type Props = {
   blog: any;
@@ -32,7 +33,7 @@ const Home: FC<Props> = ({ blog }) => {
           ))}
         </ul>
       </main>
-
+      <Test>test</Test>
       <footer className={styles.footer}>
         <a
           href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
@@ -46,6 +47,12 @@ const Home: FC<Props> = ({ blog }) => {
     </div>
   );
 };
+
+export const Test = styled.h2`
+  font-size: 1.5em;
+  text-align: center;
+  color: red;
+`;
 
 export const getStaticProps: GetStaticProps = async () => {
   const key = {
