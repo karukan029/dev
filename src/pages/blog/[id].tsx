@@ -26,20 +26,20 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const key = {
     headers: { 'X-API-KEY': process.env.API_KEY },
   };
-  const data = await fetch('https://kazu013.microcms.io/api/v1/blog', key)
+  const data = await fetch(`${process.env.END_POINT}/blog`, key)
     .then((res) => res.json())
     .catch(() => null);
   const paths = data.contents.map((content) => `/blog/${content.id}`);
   return { paths, fallback: false };
 };
 
-// データをテンプレートに受け渡す部分の処理を記述します
+// データをテンプレートに受け渡す部分の処理を記述（GetStaticPropsの引数でURLパラメータを取得）
 export const getStaticProps: GetStaticProps = async (context) => {
   const { id } = context.params;
   const key = {
     headers: { 'X-API-KEY': process.env.API_KEY },
   };
-  let url = `https://kazu013.microcms.io/api/v1/blog/${id}`;
+  let url = `${process.env.END_POINT}/blog/${id}`;
   if (context.preview) {
     url += `?draftKey=${context.previewData?.draftKey}:''`;
   }

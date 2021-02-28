@@ -7,7 +7,7 @@ const preview = async (req, res) => {
   }
   // draftKeyが下書きであることを示す
   const content = await fetch(
-    `https://kazu013.microcms.io/api/v1/blog/${req.query.id}?draftKey=${req.query.draftKey}`,
+    `${process.env.END_POINT}/blog/${req.query.id}?draftKey=${req.query.draftKey}`,
     { headers: { 'X-API-KEY': process.env.API_KEY || '' } },
   )
     .then((response) => response.json())
