@@ -1,58 +1,20 @@
 import React, { FC } from 'react';
 import { GetStaticProps } from 'next';
-import Head from 'next/head';
-import Link from 'next/link';
-import Custom404 from './404';
-import styles from '../styles/Home.module.css';
-import styled from 'styled-components';
+import HomeTemplate from 'components/templates/HomeTemplate';
 
 type Props = {
   blog: any;
 };
 
 const Home: FC<Props> = ({ blog }) => {
-  if (!blog) {
-    return <Custom404 />;
-  }
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>Welcome to Next.js!</h1>
-        <ul>
-          {blog.map((contents) => (
-            <li key={contents.id}>
-              <Link href={`blog/${contents.id}`}>
-                <a>{contents.title}</a>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </main>
-      <Test>test</Test>
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
+    <HomeTemplate
+      title="Create Next App"
+      headerItems={[{ text: 'POST', href: '/#post' }]}
+      blog={blog}
+    />
   );
 };
-
-export const Test = styled.h2`
-  font-size: 1.5em;
-  text-align: center;
-  color: red;
-`;
 
 export const getStaticProps: GetStaticProps = async () => {
   const key = {

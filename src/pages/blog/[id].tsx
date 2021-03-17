@@ -1,22 +1,18 @@
 import React, { FC } from 'react';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import fetch from 'node-fetch';
+import PostTemplate from 'components/templates/PostTemplate';
 
 type Props = {
   blog: any;
 };
 
 const BlogId: FC<Props> = ({ blog }) => (
-  <main className="main">
-    <h1 className="title">{blog.title}</h1>
-    <p className="publisedAt">{blog.publishedAt}</p>
-    <p className="category">{blog.category && `${blog.category.name}`}</p>
-    <div
-      dangerouslySetInnerHTML={{
-        __html: `${blog.body}`,
-      }}
-    />
-  </main>
+  <PostTemplate
+    title="Create Next App"
+    headerItems={[{ text: 'POST', href: '/#post' }]}
+    blog={blog}
+  ></PostTemplate>
 );
 
 export default BlogId;

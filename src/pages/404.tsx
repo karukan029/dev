@@ -1,11 +1,6 @@
 import React, { FC } from 'react';
-import Link from 'next/link';
+import ErrorTemplate from 'components/templates/ErrorTemplate';
 
-const Custom404: FC = () => (
-  <main className="main">
-    <p>ページがありません。</p>
-    <Link href="/">トップページへ戻る</Link>
-  </main>
-);
+const Custom404: FC = () => <ErrorTemplate />;
 
 export default Custom404;
