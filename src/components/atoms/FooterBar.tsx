@@ -13,9 +13,9 @@ const FotterBar: FC<Props> = (props) => {
 const Footer = styled.footer`
   width: 100%;
   height: 112px;
-  padding: 0 40px;
+  padding: 0 24px;
   background-color: #fff;
-  ${media.handheld769`
+  ${media.handheld426`
     height: 200px;
     padding: 0 32px;
   `}

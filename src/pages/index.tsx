@@ -7,13 +7,7 @@ type Props = {
 };
 
 const Home: FC<Props> = ({ blog }) => {
-  return (
-    <HomeTemplate
-      title="Create Next App"
-      headerItems={[{ text: 'POST', href: '/#post' }]}
-      blog={blog}
-    />
-  );
+  return <HomeTemplate title="Create Next App" blog={blog} />;
 };
 
 export const getStaticProps: GetStaticProps = async () => {

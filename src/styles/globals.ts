@@ -5,13 +5,13 @@ const GlobalStyle = createGlobalStyle`
   body {
     padding: 0;
     margin: 0;
-   font-family: "Helvetica Neue",
+    font-family: "Helvetica Neue",
      Arial,
      "Hiragino Kaku Gothic ProN",
      "Hiragino Sans",
      Meiryo,
      sans-serif;
-   background-color: ${(props) => props.theme.colors.primary.base};
+    background-color: ${(props) => props.theme.colors.primary.base};
   }
 
   a {

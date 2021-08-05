@@ -1,18 +1,16 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
-import MenuItemText from 'components/atoms/MenuItemText';
 
 type Props = {
-  href: string;
+  href?: string;
+  className?: string;
 };
 
 const FotterMenuItem: FC<Props> = (props) => {
   return (
     <Link href={props.href} scroll={false}>
-      <MenuItemLink>
-        <MenuItemText>{props.children}</MenuItemText>
-      </MenuItemLink>
+      <MenuItemLink>{props.children}</MenuItemLink>
     </Link>
   );
 };
@@ -27,7 +25,6 @@ const MenuItemLink = styled.a`
     display: block;
     width: 0;
     border-bottom: solid 2px ${(props) => props.theme.colors.primary.main};
-    bottom: 0;
     transition: all ease-out 0.3s;
   }
   &:hover {

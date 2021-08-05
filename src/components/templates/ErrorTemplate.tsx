@@ -1,13 +1,15 @@
 import React, { FC } from 'react';
 import Link from 'next/link';
-import HeaderMenu from 'components/organisms/HeaderMenu';
+import PageWrapper from 'components/layouts/PageWrapper';
 
-const ErrorTemplate: FC = () => {
+const ErrorTemplate: FC = (props) => {
   return (
-    <main>
-      <p>ページがありません。</p>
-      <Link href="/">トップページへ戻る</Link>
-    </main>
+    <PageWrapper>
+      <main>
+        <p>ページがありません。</p>
+        <Link href="/">トップページへ戻る</Link>
+      </main>
+    </PageWrapper>
   );
 };
 

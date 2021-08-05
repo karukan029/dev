@@ -3,16 +3,9 @@ import MetaHead from 'components/MetaHead';
 import PostHeadingArea from 'components/molecules/PostHeadingArea';
 import PageWrapper from 'components/layouts/PageWrapper';
 import PostContentsArea from 'components/layouts/PostContentsArea';
-import HeaderMenu from 'components/organisms/HeaderMenu';
 
 type Props = {
   title: string;
-  headerItems: [
-    {
-      text: string;
-      href: string;
-    },
-  ];
   blog: any;
 };
 
@@ -20,7 +13,6 @@ const PostTemplate: FC<Props> = (props) => {
   return (
     <>
       <MetaHead title={props.blog.title} />
-      <HeaderMenu home={props.title} items={props.headerItems} />
       <PageWrapper>
         <main>
           <PostContentsArea>

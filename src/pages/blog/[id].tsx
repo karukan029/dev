@@ -8,11 +8,7 @@ type Props = {
 };
 
 const BlogId: FC<Props> = ({ blog }) => (
-  <PostTemplate
-    title="Create Next App"
-    headerItems={[{ text: 'POST', href: '/#post' }]}
-    blog={blog}
-  ></PostTemplate>
+  <PostTemplate title="Create Next App" blog={blog}></PostTemplate>
 );
 
 export default BlogId;
