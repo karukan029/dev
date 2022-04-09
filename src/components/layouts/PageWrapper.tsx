@@ -14,12 +14,12 @@ const PageWrapper: FC<Props> = (props) => {
   return (
     <>
       <HeaderMenu
-        home="Create Next App"
+        home={process.env.NEXT_PUBLIC_SITE_NAME}
         items={[{ text: 'POST', href: '/#post' }]}
       />
       <Wrapper className={props.className}>{props.children}</Wrapper>
       <FooterMenu
-        home="Create Next App"
+        home={process.env.NEXT_PUBLIC_SITE_NAME}
         twitterUrl={process.env.NEXT_PUBLIC_TWITTER_URL}
         githubUrl={process.env.NEXT_PUBLIC_GITHUB_URL}
       />

@@ -32,7 +32,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     headers: { 'X-API-KEY': process.env.API_KEY },
   };
   let url = `${process.env.END_POINT}/blog/${id}`;
-  if (context.preview) {
+  if (context?.preview) {
     url += `?draftKey=${context.previewData?.draftKey}:''`;
   }
   const data = await fetch(url, key)
