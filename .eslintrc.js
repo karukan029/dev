@@ -30,6 +30,7 @@ module.exports = {
     'react/destructuring-assignment': ['off'],
     '@typescript-eslint/no-use-before-define': ['off'],
     'react/jsx-filename-extension': ['error', { extensions: ['.jsx', '.tsx'] }],
+    'object-curly-newline': 'off',
     'import/extensions': [
       'error',
       'ignorePackages',
@@ -38,12 +39,6 @@ module.exports = {
         jsx: 'never',
         ts: 'never',
         tsx: 'never',
-      },
-    ],
-    'object-curly-newline': [
-      'error',
-      {
-        ImportDeclaration: 'never',
       },
     ],
     'react/jsx-props-no-spreading': [
