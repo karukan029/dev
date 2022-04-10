@@ -1,15 +1,23 @@
 {
-  "[json]": {
-    "editor.quickSuggestions": {
-      "strings": true
-    },
-    "editor.suggest.insertMode": "replace"
-  },
-  "editor.formatOnSave": true, // <-- prettierで整形
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true // <-- eslintでリント
+    "source.fixAll.eslint": true
   },
-  "typescript.enablePromptUseWorkspaceTsdk": true,
-  // デフォルトフォーマッタをprettierに
-  "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "editor.formatOnSave": false,
+  "typescript.tsdk": "./node_modules/typescript/lib",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[javascript]": {
+    "editor.formatOnSave": true
+  },
+  "[javascriptreact]": {
+    "editor.formatOnSave": true
+  },
+  "[json]": {
+    "editor.formatOnSave": true
+  },
+  "[typescript]": {
+    "editor.formatOnSave": true
+  },
+  "[typescriptreact]": {
+    "editor.formatOnSave": true
+  }
 }
