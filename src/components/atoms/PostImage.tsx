@@ -9,13 +9,11 @@ type Props = {
   className?: string;
 };
 
-const PostImage: FC<Props> = (props) => {
-  return (
-    <ImageWrap className={props.className}>
-      <Image src={props.src} width={props.width} height={props.height} />
-    </ImageWrap>
-  );
-};
+const PostImage: FC<Props> = (props) => (
+  <ImageWrap className={props.className}>
+    <Image src={props.src} width={props.width} height={props.height} />
+  </ImageWrap>
+);
 
 const ImageWrap = styled.div`
   display: inline-block;

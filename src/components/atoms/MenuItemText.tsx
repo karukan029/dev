@@ -1,14 +1,14 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { media } from 'libs/style-utlis';
+import media from 'src/libs/style-utlis';
 
 type Props = {
   className?: string;
 };
 
-const MenuItemText: FC<Props> = (props) => {
-  return <LinkItem className={props.className}>{props.children}</LinkItem>;
-};
+const MenuItemText: FC<Props> = (props) => (
+  <LinkItem className={props.className}>{props.children}</LinkItem>
+);
 
 const LinkItem = styled.span`
   font-size: 16px;

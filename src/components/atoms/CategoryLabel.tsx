@@ -5,9 +5,9 @@ type Props = {
   className?: string;
 };
 
-const CategoryLabel: FC<Props> = (props) => {
-  return <Label className={props.className}>{props.children}</Label>;
-};
+const CategoryLabel: FC<Props> = (props) => (
+  <Label className={props.className}>{props.children}</Label>
+);
 
 const Label = styled.div`
   display: inline-block;

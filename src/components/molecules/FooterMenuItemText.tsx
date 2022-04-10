@@ -7,13 +7,11 @@ type Props = {
   className?: string;
 };
 
-const FotterMenuItem: FC<Props> = (props) => {
-  return (
-    <Link href={props.href} scroll={false}>
-      <MenuItemLink>{props.children}</MenuItemLink>
-    </Link>
-  );
-};
+const FotterMenuItem: FC<Props> = (props) => (
+  <Link href={props.href} scroll={false}>
+    <MenuItemLink>{props.children}</MenuItemLink>
+  </Link>
+);
 
 const MenuItemLink = styled.a`
   display: inline-block;

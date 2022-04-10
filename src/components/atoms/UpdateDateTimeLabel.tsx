@@ -5,9 +5,9 @@ type Props = {
   className?: string;
 };
 
-const GridUpdateDateTimeLabel: FC<Props> = (props) => {
-  return <Label className={props.className}>{props.children}</Label>;
-};
+const GridUpdateDateTimeLabel: FC<Props> = (props) => (
+  <Label className={props.className}>{props.children}</Label>
+);
 
 const Label = styled.span`
   font-size: 14px;

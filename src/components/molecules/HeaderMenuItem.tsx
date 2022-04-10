@@ -1,21 +1,19 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
-import MenuItemText from 'components/atoms/MenuItemText';
+import { MenuItemText } from 'src/components/atoms';
 
 type Props = {
   href: string;
 };
 
-const HeaderMenuItem: FC<Props> = (props) => {
-  return (
-    <Link href={props.href} scroll={false}>
-      <MenuItemLink>
-        <MenuItemText>{props.children}</MenuItemText>
-      </MenuItemLink>
-    </Link>
-  );
-};
+const HeaderMenuItem: FC<Props> = (props) => (
+  <Link href={props.href} scroll={false}>
+    <MenuItemLink>
+      <MenuItemText>{props.children}</MenuItemText>
+    </MenuItemLink>
+  </Link>
+);
 
 const MenuItemLink = styled.a`
   display: inline-block;

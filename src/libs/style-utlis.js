@@ -1,7 +1,7 @@
 // style-utils.jsというutilsを作る
 import { css } from 'styled-components';
 
-export const media = {
+const media = {
   handheld769: (...args) => css`
     @media (min-width: 769px) {
       //769px以上
@@ -21,3 +21,5 @@ export const media = {
     }
   `,
 };
+
+export default media;

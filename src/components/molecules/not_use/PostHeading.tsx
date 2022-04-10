@@ -1,10 +1,8 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import SecondHeadingText from 'components/atoms/SecondHeadingText';
+import { SecondHeadingText } from 'src/components/atoms';
 
-const PostHeading: FC = (props) => {
-  return <Heading>{props.children}</Heading>;
-};
+const PostHeading: FC = (props) => <Heading>{props.children}</Heading>;
 
 const Heading = styled(SecondHeadingText)`
   width: 100%;

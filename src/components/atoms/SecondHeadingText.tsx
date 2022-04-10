@@ -6,13 +6,11 @@ type Props = {
   id?: string;
 };
 
-const SecondHeadingText: FC<Props> = (props) => {
-  return (
-    <Heading id={props.id} className={props.className}>
-      {props.children}
-    </Heading>
-  );
-};
+const SecondHeadingText: FC<Props> = (props) => (
+  <Heading id={props.id} className={props.className}>
+    {props.children}
+  </Heading>
+);
 
 const Heading = styled.h2`
   font-size: 24px;

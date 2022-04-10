@@ -1,7 +1,7 @@
 import React, { FC, ReactNode } from 'react';
 import styled from 'styled-components';
-import HeaderBar from 'components/atoms/HeaderBar';
-import HeaderMenuItem from 'components/molecules/HeaderMenuItem';
+import { HeaderBar } from 'src/components/atoms';
+import { HeaderMenuItem } from 'src/components/molecules';
 
 type Props = {
   home: ReactNode;
@@ -13,18 +13,16 @@ type Props = {
   ];
 };
 
-const HeaderMenu: FC<Props> = (props) => {
-  return (
-    <Header>
-      <HeaderMenuItem href="/">{props.home}</HeaderMenuItem>
-      {props.items.map((item) => (
-        <HeaderMenuItem key={item.text} href={item.href}>
-          {item.text}
-        </HeaderMenuItem>
-      ))}
-    </Header>
-  );
-};
+const HeaderMenu: FC<Props> = (props) => (
+  <Header>
+    <HeaderMenuItem href="/">{props.home}</HeaderMenuItem>
+    {props.items.map((item) => (
+      <HeaderMenuItem key={item.text} href={item.href}>
+        {item.text}
+      </HeaderMenuItem>
+    ))}
+  </Header>
+);
 
 const Header = styled(HeaderBar)`
   display: flex;

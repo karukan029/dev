@@ -8,11 +8,9 @@ type Props = {
   className?: string;
 };
 
-const CricleImage: FC<Props> = (props) => {
-  return (
-    <ImageWrap src={props.src} width={props.diameter} height={props.diameter} />
-  );
-};
+const CricleImage: FC<Props> = (props) => (
+  <ImageWrap src={props.src} width={props.diameter} height={props.diameter} />
+);
 
 const ImageWrap = styled(Image)`
   display: inline-block;

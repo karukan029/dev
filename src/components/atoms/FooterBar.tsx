@@ -1,14 +1,14 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { media } from 'libs/style-utlis';
+import media from 'src/libs/style-utlis';
 
 type Props = {
   className?: string;
 };
 
-const FotterBar: FC<Props> = (props) => {
-  return <Footer className={props.className}>{props.children}</Footer>;
-};
+const FotterBar: FC<Props> = (props) => (
+  <Footer className={props.className}>{props.children}</Footer>
+);
 
 const Footer = styled.footer`
   width: 100%;

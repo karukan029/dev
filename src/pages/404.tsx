@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import ErrorTemplate from 'components/templates/ErrorTemplate';
+import { ErrorTemplate } from 'src/components/templates';
 
 const Custom404: FC = () => <ErrorTemplate />;
 

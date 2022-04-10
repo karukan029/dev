@@ -5,9 +5,9 @@ type Props = {
   className?: string;
 };
 
-const PostListItemTitle: FC<Props> = (props) => {
-  return <Title className={props.className}>{props.children}</Title>;
-};
+const PostListItemTitle: FC<Props> = (props) => (
+  <Title className={props.className}>{props.children}</Title>
+);
 
 const Title = styled.h3`
   font-size: 16px;
