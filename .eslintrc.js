@@ -41,6 +41,7 @@ module.exports = {
         tsx: 'never',
       },
     ],
+    'import/prefer-default-export': 'off',
     'react/jsx-props-no-spreading': [
       'error',
       { html: 'enforce', custom: 'ignore', explicitSpread: 'ignore' },
