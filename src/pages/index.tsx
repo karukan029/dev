@@ -1,26 +1,53 @@
-import React, { FC } from 'react';
-import { GetStaticProps } from 'next';
-import HomeTemplate from 'components/templates/HomeTemplate';
+import { GetStaticProps, InferGetStaticPropsType, NextPage } from 'next';
 
-type Props = {
-  blog: any;
+/** utils */
+import { client } from 'src/utils/api';
+
+/** components */
+import { HomeTemplate } from 'src/components/templates';
+
+/** types */
+import { SitedataResponse } from 'src/types/sitedata';
+import { BlogListResponse } from 'src/types/blog';
+
+type StaticProps = {
+  siteData: SitedataResponse;
+  blogList: BlogListResponse;
 };
 
-const Home: FC<Props> = ({ blog }) => {
-  return <HomeTemplate title="Create Next App" blog={blog} />;
-};
+type PageProps = InferGetStaticPropsType<typeof getStaticProps>;
 
-export const getStaticProps: GetStaticProps = async () => {
-  const key = {
-    headers: { 'X-API-KEY': process.env.API_KEY },
-  };
-  const data = await fetch(`${process.env.END_POINT}/blog`, key)
-    .then((res) => res.json())
-    .catch(() => null);
+const Home: NextPage<PageProps> = (props) => (
+  <HomeTemplate title={props.siteData.title} blogList={props.blogList} />
+);
+
+export const getStaticProps: GetStaticProps<StaticProps> = async () => {
+  // const key = {
+  //   headers: { 'X-API-KEY': process.env.API_KEY },
+  // };
+  // const data = await fetch(`${process.env.END_POINT}/blog`, key)
+  //   .then((res) => res.json())
+  //   .catch(() => null);
+  // return {
+  //   props: {
+  //     blog: data.contents,
+  //   },
+  // };
+  const siteDataPromise = client.v1.sitedata.$get({
+    query: { fields: 'title' },
+  });
+
+  const blogListPromise = client.v1.blog.$get({
+    query: { fields: 'id,title,image,category,updatedAt' },
+  });
+
+  const [siteData, blogList] = await Promise.all([
+    siteDataPromise,
+    blogListPromise,
+  ]);
+
   return {
-    props: {
-      blog: data.contents,
-    },
+    props: { siteData, blogList },
   };
 };
 
