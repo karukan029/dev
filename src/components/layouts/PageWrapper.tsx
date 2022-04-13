@@ -1,8 +1,7 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { media } from 'libs/style-utlis';
-import HeaderMenu from 'components/organisms/HeaderMenu';
-import FooterMenu from 'components/organisms/FooterMenu';
+import media from 'src/libs/style-utlis';
+import { HeaderMenu, FooterMenu } from 'src/components/organisms';
 
 type Props = {
   className?: string;
@@ -10,22 +9,20 @@ type Props = {
   githubUrl?: string;
 };
 
-const PageWrapper: FC<Props> = (props) => {
-  return (
-    <>
-      <HeaderMenu
-        home={process.env.NEXT_PUBLIC_SITE_NAME}
-        items={[{ text: 'POST', href: '/#post' }]}
-      />
-      <Wrapper className={props.className}>{props.children}</Wrapper>
-      <FooterMenu
-        home={process.env.NEXT_PUBLIC_SITE_NAME}
-        twitterUrl={process.env.NEXT_PUBLIC_TWITTER_URL}
-        githubUrl={process.env.NEXT_PUBLIC_GITHUB_URL}
-      />
-    </>
-  );
-};
+const PageWrapper: FC<Props> = (props) => (
+  <>
+    <HeaderMenu
+      home={process.env.NEXT_PUBLIC_SITE_NAME}
+      items={[{ text: 'POST', href: '/#post' }]}
+    />
+    <Wrapper className={props.className}>{props.children}</Wrapper>
+    <FooterMenu
+      home={process.env.NEXT_PUBLIC_SITE_NAME}
+      twitterUrl={process.env.NEXT_PUBLIC_TWITTER_URL}
+      githubUrl={process.env.NEXT_PUBLIC_GITHUB_URL}
+    />
+  </>
+);
 
 const Wrapper = styled.div`
   max-width: 1140px;

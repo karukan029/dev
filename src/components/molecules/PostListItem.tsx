@@ -1,11 +1,13 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
-import PostImage from 'components/atoms/PostImage';
-import PostListItemTitle from 'components/atoms/PostListItemTitle';
-import CategoryLabel from 'components/atoms/CategoryLabel';
-import UpdateDateTimeLabel from 'components/atoms/UpdateDateTimeLabel';
-import { media } from 'libs/style-utlis';
+import {
+  PostImage,
+  PostListItemTitle,
+  CategoryLabel,
+  UpdateDateTimeLabel,
+} from 'src/components/atoms';
+import media from 'src/libs/style-utlis';
 
 type Props = {
   id: string;
@@ -15,20 +17,18 @@ type Props = {
   datetime: string;
 };
 
-const PostListItem: FC<Props> = (props) => {
-  return (
-    <Link href={`/blog/${props.id}`}>
-      <ATug>
-        <Grid>
-          <GridItemImage src={props.src} width={'120'} height={'120'} />
-          <GridItemTitle>{props.title}</GridItemTitle>
-          <GridItemCategory>{props.category}</GridItemCategory>
-          <GridItemDatetime>{props.datetime}</GridItemDatetime>
-        </Grid>
-      </ATug>
-    </Link>
-  );
-};
+const PostListItem: FC<Props> = (props) => (
+  <Link href={`/blog/${props.id}`}>
+    <ATug>
+      <Grid>
+        <GridItemImage src={props.src} width="120" height="120" />
+        <GridItemTitle>{props.title}</GridItemTitle>
+        <GridItemCategory>{props.category}</GridItemCategory>
+        <GridItemDatetime>{props.datetime}</GridItemDatetime>
+      </Grid>
+    </ATug>
+  </Link>
+);
 
 const ATug = styled.a`
   text-decoration: none;

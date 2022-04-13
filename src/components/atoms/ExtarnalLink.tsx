@@ -7,18 +7,16 @@ type Props = {
   className?: string;
 };
 
-const ExtarnalLinkIcon: FC<Props> = (props) => {
-  return (
-    <Link
-      href={props.href}
-      target="_blank"
-      rel="noopener noreferrer"
-      height={props.height}
-    >
-      {props.children}
-    </Link>
-  );
-};
+const ExtarnalLinkIcon: FC<Props> = (props) => (
+  <Link
+    href={props.href}
+    target="_blank"
+    rel="noopener noreferrer"
+    height={props.height}
+  >
+    {props.children}
+  </Link>
+);
 
 const Link = styled.a`
   display: inline-block;

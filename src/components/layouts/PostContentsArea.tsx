@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { media } from 'libs/style-utlis';
+import media from 'src/libs/style-utlis';
 
-const PostContentsArea: FC = (props) => {
-  return <ContentsArea>{props.children}</ContentsArea>;
-};
+const PostContentsArea: FC = (props) => (
+  <ContentsArea>{props.children}</ContentsArea>
+);
 
 const ContentsArea = styled.div`
   display: block;

@@ -1,14 +1,14 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { media } from 'libs/style-utlis';
+import media from 'src/libs/style-utlis';
 
 type Props = {
   className?: string;
 };
 
-const FirstHeadingText: FC<Props> = (props) => {
-  return <Heading className={props.className}>{props.children}</Heading>;
-};
+const FirstHeadingText: FC<Props> = (props) => (
+  <Heading className={props.className}>{props.children}</Heading>
+);
 
 const Heading = styled.h1`
   font-size: 24px;
