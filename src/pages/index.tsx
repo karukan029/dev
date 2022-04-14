@@ -22,17 +22,6 @@ const Home: NextPage<PageProps> = (props) => (
 );
 
 export const getStaticProps: GetStaticProps<StaticProps> = async () => {
-  // const key = {
-  //   headers: { 'X-API-KEY': process.env.API_KEY },
-  // };
-  // const data = await fetch(`${process.env.END_POINT}/blog`, key)
-  //   .then((res) => res.json())
-  //   .catch(() => null);
-  // return {
-  //   props: {
-  //     blog: data.contents,
-  //   },
-  // };
   const siteDataPromise = client.v1.sitedata.$get({
     query: { fields: 'title' },
   });

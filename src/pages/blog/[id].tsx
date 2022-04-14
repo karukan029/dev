@@ -87,27 +87,3 @@ export const getStaticProps: GetStaticProps<StaticProps> = async (context) => {
     return { notFound: true };
   }
 };
-
-// export const getStaticProps: GetStaticProps = async (context) => {
-//   const { params, previewData } = context;
-
-//   const { id } = params;
-//   const draftKey = isDraft(previewData) ? previewData.draftKey : '';
-
-//   const key = {
-//     headers: { 'X-API-KEY': process.env.API_KEY },
-//   };
-
-//   // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-//   const url = `${process.env.END_POINT}/blog/${id}${
-//     draftKey !== undefined ? `?draftKey=${draftKey}` : ''
-//   }`;
-//   const data = await fetch(url, key)
-//     .then((res) => res.json())
-//     .catch(() => null);
-//   return {
-//     props: {
-//       blog: data,
-//     },
-//   };
-// };
