@@ -11,18 +11,22 @@ import { SitedataResponse } from 'src/types/sitedata';
 import { BlogListResponse } from 'src/types/blog';
 
 type StaticProps = {
-  siteData: SitedataResponse;
+  sitedata: SitedataResponse;
   blogList: BlogListResponse;
 };
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>;
 
 const Home: NextPage<PageProps> = (props) => (
-  <HomeTemplate title={props.siteData.title} blogList={props.blogList} />
+  <HomeTemplate
+    title={props.sitedata.title}
+    sitedata={props.sitedata}
+    blogList={props.blogList}
+  />
 );
 
 export const getStaticProps: GetStaticProps<StaticProps> = async () => {
-  const siteDataPromise = client.v1.sitedata.$get({
+  const sitedataPromise = client.v1.sitedata.$get({
     query: { fields: 'title' },
   });
 
@@ -30,13 +34,13 @@ export const getStaticProps: GetStaticProps<StaticProps> = async () => {
     query: { fields: 'id,title,image,category,updatedAt' },
   });
 
-  const [siteData, blogList] = await Promise.all([
-    siteDataPromise,
+  const [sitedata, blogList] = await Promise.all([
+    sitedataPromise,
     blogListPromise,
   ]);
 
   return {
-    props: { siteData, blogList },
+    props: { sitedata, blogList },
   };
 };
 

@@ -14,35 +14,27 @@ import { toStringId } from 'src/utils/toStringId';
 import { PostTemplate } from 'src/components/templates';
 
 /** types */
+import { SitedataResponse } from 'src/types/sitedata';
 import { BlogResponse } from 'src/types/blog';
 
 type StaticProps = {
-  blogData: BlogResponse;
+  sitedata: SitedataResponse;
+  blog: BlogResponse;
 };
 
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>;
 
-const BlogId: NextPage<PageProps> = ({ blogData }) => (
-  <PostTemplate blogData={blogData} />
+const BlogId: NextPage<PageProps> = (props) => (
+  <PostTemplate sitedata={props.sitedata} blog={props.blog} />
 );
 
 export default BlogId;
 
 // 静的生成のためのパスを指定します
-export const getStaticPaths: GetStaticPaths = () =>
-  // const key = {
-  //   headers: { 'X-API-KEY': process.env.API_KEY },
-  // };
-  // const data = await fetch(`${process.env.END_POINT}/blog`, key)
-  //   .then((res) => res.json())
-  //   .catch(() => null);
-  // // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-  // const paths = data.contents.map((content) => `/blog/${content.id}`);
-  // return { paths, fallback: false };
-  ({
-    fallback: 'blocking',
-    paths: [],
-  });
+export const getStaticPaths: GetStaticPaths = () => ({
+  fallback: 'blocking',
+  paths: [],
+});
 
 // 与えられた引数に`draftKey`値が存在するかチェックする
 // 型ガードとは、条件ブロック内のオブジェクトの型を制限するための仕組み
@@ -57,6 +49,12 @@ const isDraft = (item: any): item is { draftKey: string } =>
 
 // データをテンプレートに受け渡す部分の処理を記述（GetStaticPropsの引数でURLパラメータを取得）
 export const getStaticProps: GetStaticProps<StaticProps> = async (context) => {
+  // サイトデータ
+  const sitedata = await client.v1.sitedata.$get({
+    query: { fields: 'title' },
+  });
+
+  // 記事データ
   const { params, previewData } = context;
 
   if (!params?.id) {
@@ -73,14 +71,14 @@ export const getStaticProps: GetStaticProps<StaticProps> = async (context) => {
   try {
     // プレビューモードのクエリパラメータを追加
     // eslint-disable-next-line no-underscore-dangle
-    const blogData = await client.v1.blog._id(id).$get({
+    const blog = await client.v1.blog._id(id).$get({
       query: {
-        fields: 'title,image,category,publishedAt',
+        fields: 'title,image,category,body,publishedAt',
         ...draftKey,
       },
     });
     return {
-      props: { blogData },
+      props: { sitedata, blog },
     };
   } catch (e) {
     // 404 ページを戻す(Next10以降)

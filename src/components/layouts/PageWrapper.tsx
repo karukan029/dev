@@ -1,9 +1,15 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import media from 'src/libs/style-utlis';
+
+/** component */
 import { HeaderMenu, FooterMenu } from 'src/components/organisms';
 
+/** types */
+import { SitedataResponse } from 'src/types/sitedata';
+
 type Props = {
+  sitedata: SitedataResponse;
   className?: string;
   twitterUrl?: string;
   githubUrl?: string;
@@ -12,12 +18,12 @@ type Props = {
 const PageWrapper: FC<Props> = (props) => (
   <>
     <HeaderMenu
-      home={process.env.NEXT_PUBLIC_SITE_NAME}
+      home={props.sitedata.title}
       items={[{ text: 'POST', href: '/#post' }]}
     />
     <Wrapper className={props.className}>{props.children}</Wrapper>
     <FooterMenu
-      home={process.env.NEXT_PUBLIC_SITE_NAME}
+      home={props.sitedata.title}
       twitterUrl={process.env.NEXT_PUBLIC_TWITTER_URL}
       githubUrl={process.env.NEXT_PUBLIC_GITHUB_URL}
     />
