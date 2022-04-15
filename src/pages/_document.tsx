@@ -1,38 +1,15 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import Document, { Html, Head, Main, NextScript } from 'next/document';
-import { ServerStyleSheet } from 'styled-components';
+import { Html, Head, Main, NextScript } from 'next/document';
 
-type Props = {
-  styleTags: any;
-};
+const Document = () => (
+  <Html lang="ja">
+    <Head>
+      <meta charSet="utf-8" />
+    </Head>
+    <body>
+      <Main />
+      <NextScript />
+    </body>
+  </Html>
+);
 
-export default class MyDocument extends Document<Props> {
-  static getInitialProps({ renderPage }) {
-    const sheet = new ServerStyleSheet();
-
-    const page = renderPage(
-      (App) => (props) => sheet.collectStyles(<App {...props} />),
-    );
-
-    const styleTags = sheet.getStyleElement();
-
-    return { ...page, styleTags };
-  }
-
-  render() {
-    return (
-      <Html lang="ja">
-        <Head>
-          <meta charSet="utf-8" />
-          {this.props.styleTags}
-        </Head>
-        <body>
-          <Main />
-          <NextScript />
-        </body>
-      </Html>
-    );
-  }
-}
+export default Document;
