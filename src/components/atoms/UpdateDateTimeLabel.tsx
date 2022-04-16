@@ -10,7 +10,7 @@ const GridUpdateDateTimeLabel: FC<Props> = (props) => (
 );
 
 const Label = styled.span`
-  font-size: 14px;
+  font-size: 16px;
   letter-spacing: ${(props) => props.theme.letterSpacing};
   line-height: ${(props) => props.theme.lineHeight};
   color: #727272;
@@ -18,7 +18,8 @@ const Label = styled.span`
     content: '';
     display: inline-block;
     position: relative;
-    top: 3px;
+    top: 2px;
+    right: 2px;
     width: 16px;
     height: 16px;
     background-image: url('/reload_icon.svg');
