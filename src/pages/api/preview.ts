@@ -28,9 +28,11 @@ const preview = async (
   // res.setPreviewData()に渡した引数がgetStaticPropsの引数であるcontextから受け取れる
   res.setPreviewData({ ...post, draftKey });
   // 本来の記事のパスにリダイレクト
-  res.writeHead(307, { Location: `/blog/${post.id}` });
+  res.writeHead(307, { Location: `/blog/${id}` });
   res.end();
 };
+
+export default preview;
 
 // // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 // const preview = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -58,5 +60,3 @@ const preview = async (
 //   res.writeHead(307, { Location: `/blog/${content.id}` });
 //   res.end('Preview mode enabled');
 // };
-
-export default preview;
