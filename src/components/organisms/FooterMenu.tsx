@@ -45,6 +45,7 @@ const ContentsArea = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 320px;
+  padding: 0 16px;
   margin: 0 auto;
 `;
 
