@@ -14,9 +14,9 @@ const media = {
       ${css(...args)}
     }
   `,
-  handheld360: (...args) => css`
-    @media (min-width: 360px) {
-      //360px以上
+  handheld376: (...args) => css`
+    @media (min-width: 376px) {
+      //376px以上
       ${css(...args)}
     }
   `,

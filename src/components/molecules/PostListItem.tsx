@@ -37,7 +37,7 @@ const ATug = styled.a`
 
 const Grid = styled.div`
   display: Grid;
-  ${media.handheld360`
+  ${media.handheld376`
     grid-template-rows: 72px 40px;
     grid-template-columns: 120px 80px 1fr;
     grid-template-areas:
@@ -65,14 +65,14 @@ export const GridItemImage = styled(PostImage)`
 export const GridItemTitle = styled(PostListItemTitle)`
   grid-area: title;
   padding-top: 8px;
-  margin-right: 16px;
+  margin-right: 8px;
 `;
 
 export const GridItemCategory = styled(CategoryLabel)`
   grid-area: category;
   margin-left: 16px;
   align-self: center;
-  ${media.handheld360`
+  ${media.handheld376`
     margin-left: 0px;
   `}
 `;
@@ -81,7 +81,7 @@ export const GridItemDatetime = styled(UpdateDateTimeLabel)`
   grid-area: datetime;
   align-self: center;
   justify-self: end;
-  margin-right: 16px;
+  margin-right: 8px;
 `;
 
 export default PostListItem;

@@ -35,7 +35,7 @@ const ListWrap = styled.ul`
   display: grid;
   grid-gap: 24px;
   ${media.handheld426`
-    grid-template-columns: repeat(auto-fill, minmax(328px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(332px, 1fr));
   `}
 `;
 
