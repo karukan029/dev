@@ -12,6 +12,7 @@ const MenuItemText: FC<Props> = (props) => (
 
 const LinkItem = styled.span`
   font-size: 16px;
+  font-weight: bold;
   letter-spacing: ${(props) => props.theme.letterSpacing};
   line-height: ${(props) => props.theme.lineHeight};
   ${media.handheld426`
