@@ -18,16 +18,12 @@ type StaticProps = {
 type PageProps = InferGetStaticPropsType<typeof getStaticProps>;
 
 const Home: NextPage<PageProps> = (props) => (
-  <HomeTemplate
-    title={props.sitedata.title}
-    sitedata={props.sitedata}
-    blogList={props.blogList}
-  />
+  <HomeTemplate sitedata={props.sitedata} blogList={props.blogList} />
 );
 
 export const getStaticProps: GetStaticProps<StaticProps> = async () => {
   const sitedataPromise = client.v1.sitedata.$get({
-    query: { fields: 'title' },
+    query: { fields: 'title,description' },
   });
 
   const blogListPromise = client.v1.blog.$get({
