@@ -26,6 +26,7 @@ const PageWrapper: FC<Props> = (props) => (
       home={props.sitedata.title}
       twitterUrl={process.env.NEXT_PUBLIC_TWITTER_URL}
       githubUrl={process.env.NEXT_PUBLIC_GITHUB_URL}
+      zennUrl={process.env.NEXT_PUBLIC_ZENN_URL}
     />
   </>
 );
