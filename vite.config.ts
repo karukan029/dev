@@ -16,6 +16,9 @@ export default defineConfig({
     tailwindcss(),
     build(),
   ],
+  server: {
+    port: 3000,
+  },
   ssr: {
     external: ['rehype-sanitize', 'rehype-stringify', 'remark-parse', 'remark-rehype', 'unified']
   },
