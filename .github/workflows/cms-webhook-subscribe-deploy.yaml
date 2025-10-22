@@ -22,6 +22,8 @@ jobs:
         run: pnpm install
       - name: Build
         run: pnpm build
+        env:
+          CMS_URL: ${{ vars.CMS_URL }}
       - name: Deploy Worker
         uses: cloudflare/wrangler-action@v3
         with:
