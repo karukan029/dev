@@ -23,8 +23,8 @@ jobs:
       - name: Build
         run: pnpm build
         env:
-          CMS_URL: ${{ vars.CMS_URL }}
-          READ_API_KEY: ${{ vars.READ_API_KEY }}
+          CMS_URL: ${{ env.CMS_URL }}
+          READ_API_KEY: ${{ secrets.READ_API_KEY }}
       - name: Deploy Worker
         uses: cloudflare/wrangler-action@v3
         with:
