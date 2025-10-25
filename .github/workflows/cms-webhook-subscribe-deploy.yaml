@@ -34,3 +34,6 @@ jobs:
             CMS_URL
           secrets: |
             READ_API_KEY
+        env:
+          CMS_URL: ${{ vars.CMS_URL }}
+          READ_API_KEY: ${{ secrets.READ_API_KEY }}
