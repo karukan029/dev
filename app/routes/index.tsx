@@ -8,8 +8,8 @@ export default createRoute(async (c) => {
   let content = "no contents";
 
   try {
-    // apiClient will use c.env or fallback to process.env
-    const test = await apiClient(c.env).GET("/api/content/detail/{id}", {
+    // apiClient uses process.env (populated by nodejs_compat_populate_process_env)
+    const test = await apiClient().GET("/api/content/detail/{id}", {
       params: {
         path: {
           id: "1",

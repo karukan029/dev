@@ -1,11 +1,9 @@
 import createClient from "openapi-fetch";
-import type { Variables } from "../../app/global";
 import type { paths } from "./schema";
 
-export const apiClient = (env?: Variables) => {
-	// Try c.env first, then fallback to process.env
-	const CMS_URL = env?.CMS_URL || process.env.CMS_URL;
-	const READ_API_KEY = env?.READ_API_KEY || process.env.READ_API_KEY;
+export const apiClient = () => {
+	const CMS_URL = process.env.CMS_URL;
+	const READ_API_KEY = process.env.READ_API_KEY;
 
 	if (!CMS_URL || !READ_API_KEY) {
 		throw new Error("Missing required environment variables");

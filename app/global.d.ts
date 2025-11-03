@@ -1,13 +1,2 @@
-import type {} from "hono";
-
-export type Variables = {
-	CMS_URL: string;
-	READ_API_KEY: string;
-};
-
-declare module "hono" {
-	interface Env {
-		Variables: Variables;
-		Bindings: Variables;
-	}
-}
+// Environment variables are accessed via process.env
+// Thanks to nodejs_compat_populate_process_env flag in wrangler.jsonc
