@@ -4,14 +4,27 @@ import Counter from "../islands/counter";
 
 export default createRoute(async (c) => {
   const name = c.req.query("name") ?? "Hono";
-  const test = await apiClient(c.env).GET("/api/content/detail/{id}", {
-    params: {
-      path: {
-        id: "1",
+
+  let content = "no contents";
+
+  try {
+    // apiClient will use c.env or fallback to process.env
+    const test = await apiClient(c.env).GET("/api/content/detail/{id}", {
+      params: {
+        path: {
+          id: "1",
+        },
       },
-    },
-  });
-  console.log(test);
+    });
+
+    if (test.error) {
+      console.error("API Error:", test.error);
+    } else {
+      content = test.data?.content ?? "no contents";
+    }
+  } catch (error) {
+    console.error("Failed to fetch content:", error);
+  }
 
   return c.render(
     <div class="py-8 text-center">
@@ -19,7 +32,7 @@ export default createRoute(async (c) => {
       <h1 class="text-3xl font-bold">Hello, {name}!</h1>
       <div
         dangerouslySetInnerHTML={{
-          __html: test.data?.content ?? "no contents",
+          __html: content,
         }}
       ></div>
       <Counter />

@@ -1,13 +1,12 @@
 import { showRoutes } from "hono/dev";
 import { createApp } from "honox/server";
 
-import type { Env } from "hono";
-
-export type Bindings = Env & {
-	MCP_URL: string;
+export type Bindings = {
+	CMS_URL: string;
+	READ_API_KEY: string;
 };
 
-const app = createApp<Bindings>();
+const app = createApp<{ Bindings: Bindings }>();
 
 showRoutes(app);
 
