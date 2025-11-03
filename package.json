@@ -37,7 +37,7 @@
 		"pnpm": "^10.17.0",
 		"tailwindcss": "^4.0.9",
 		"vite": "^6.3.5",
-		"wrangler": "^4.4.0"
+		"wrangler": "^4.45.3"
 	},
 	"volta": {
 		"node": "22.19.0"
