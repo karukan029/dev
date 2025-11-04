@@ -11,7 +11,7 @@ export default defineConfig(({ mode }) => {
 	// Load env file based on mode
 	const env = loadEnv(mode, process.cwd(), "");
 
-	// Make env vars available to SSG build process
+	// This setting is needed to make env vars available to SSG build process
 	process.env.CMS_URL = env.CMS_URL;
 	process.env.READ_API_KEY = env.READ_API_KEY;
 
