@@ -1,6 +1,6 @@
 // app/routes/about/index.ts
-import { Hono } from "hono";
 import { readFileSync } from "node:fs";
+import { Hono } from "hono";
 import rehypeSanitize from "rehype-sanitize";
 import rehypeStringify from "rehype-stringify";
 import remarkParse from "remark-parse";
