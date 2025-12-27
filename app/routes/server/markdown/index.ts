@@ -1,11 +1,5 @@
-// app/routes/about/index.ts
-import { readFileSync } from "node:fs";
 import { Hono } from "hono";
-import rehypeSanitize from "rehype-sanitize";
-import rehypeStringify from "rehype-stringify";
-import remarkParse from "remark-parse";
-import remarkRehype from "remark-rehype";
-import { unified } from "unified";
+import { renderMarkdownBySlug } from "../../../../lib/content/markdown";
 
 const app = new Hono();
 
@@ -15,17 +9,16 @@ app.get("/:path", async (c) => {
 		return c.json({ error: "Path parameter is required" }, 400);
 	}
 
-	const file = await readFileSync(`contents/${path}.md`, { encoding: "utf8" });
-	const html = await unified()
-		.use(remarkParse)
-		.use(remarkRehype)
-		.use(rehypeSanitize)
-		.use(rehypeStringify)
-		.process(file);
-	console.log(html);
+	const rendered = await renderMarkdownBySlug(path);
+	if (!rendered) {
+		return c.json({ error: "Markdown file not found" }, 404);
+	}
 
 	return c.json({
-		contents: html,
+		slug: rendered.slug,
+		filename: rendered.filename,
+		contents: rendered.html,
+		filePath: rendered.filePath,
 	});
 });
 
