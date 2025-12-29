@@ -7,11 +7,11 @@ import remarkRehype from "remark-rehype";
 import { unified } from "unified";
 import blogConfig from "../../blog.config";
 
-const configuredDir = blogConfig.contentDir ?? "contents";
-const contentDirectory = resolve(configuredDir);
+const configuredDir = blogConfig.postsDir ?? "/posts";
+const postsDirectory = resolve(configuredDir);
 const supportedMarkdownExtensions = [".md", ".mdx"] as const;
 
-export type MarkdownEntry = {
+type PostMarkdownEntry = {
 	slug: string;
 	filePath: string;
 	filename: string;
@@ -26,36 +26,67 @@ const makeSlug = (filename: string) => {
 	return filename;
 };
 
-export const getListMarkdownEntries = (): MarkdownEntry[] => {
-	if (!existsSync(contentDirectory)) {
+const isMarkdownFile = (filename: string): boolean => {
+	return supportedMarkdownExtensions.some((ext) => filename.endsWith(ext));
+};
+
+export const getPostListMarkdownEntries = (): PostMarkdownEntry[] => {
+	if (!existsSync(postsDirectory)) {
 		return [];
 	}
 
-	return readdirSync(contentDirectory, { withFileTypes: true })
-		.filter((entry) => entry.isFile())
-		.map((entry) => entry.name)
-		.filter((name) =>
-			supportedMarkdownExtensions.some((ext) => name.endsWith(ext)),
-		)
-		.map((filename) => ({
-			filename,
-			slug: makeSlug(filename),
-			filePath: join(contentDirectory, filename),
-		}));
+	const items = readdirSync(postsDirectory, {
+		withFileTypes: true,
+	});
+
+	return items.map((item) => {
+		if (item.isDirectory()) {
+			throw new Error(
+				"Nested directories are not supported in content directory",
+			);
+		}
+
+		const fullPath = join(postsDirectory, item.name);
+
+		if (!isMarkdownFile(item.name)) {
+			throw new Error(
+				`Unsupported file type found in content directory: ${item.name}`,
+			);
+		}
+
+		const slug = makeSlug(item.name);
+
+		return {
+			filename: item.name,
+			slug,
+			filePath: fullPath,
+		};
+	});
 };
 
-const resolveMarkdownFileBySlug = (slug: string) => {
-	for (const ext of supportedMarkdownExtensions) {
-		const filePath = join(contentDirectory, `${slug}${ext}`);
-		if (existsSync(filePath)) {
-			return {
-				filename: basename(filePath),
-				slug,
-				filePath,
-			};
-		}
+const resolveMarkdownFileBySlug = (
+	slug: string,
+): PostMarkdownEntry | undefined => {
+	if (!existsSync(postsDirectory)) {
+		return;
 	}
-	return;
+
+	const entry = getPostListMarkdownEntries().find(
+		(entry) => entry.slug === slug,
+	);
+
+	if (!entry || !isMarkdownFile(entry.filename)) {
+		return;
+	}
+
+	if (
+		!isMarkdownFile(basename(entry.filePath)) ||
+		!existsSync(entry.filePath)
+	) {
+		return;
+	}
+
+	return entry;
 };
 
 const renderMarkdownString = async (markdown: string) => {

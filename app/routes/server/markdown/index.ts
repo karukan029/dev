@@ -3,13 +3,18 @@ import { renderMarkdownBySlug } from "../../../../lib/content/markdown";
 
 const app = new Hono();
 
-app.get("/:path", async (c) => {
+app.get("/:path/:nest_path?", async (c) => {
 	const path = c.req.param("path");
 	if (!path) {
 		return c.json({ error: "Path parameter is required" }, 400);
 	}
 
-	const rendered = await renderMarkdownBySlug(path);
+	const nest_path = c.req.param("nest_path");
+
+	const rendered = await renderMarkdownBySlug(
+		`${path}${nest_path ? `/${nest_path}` : ""}`,
+	);
+
 	if (!rendered) {
 		return c.json({ error: "Markdown file not found" }, 404);
 	}

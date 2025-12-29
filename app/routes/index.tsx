@@ -1,48 +1,50 @@
 import { createRoute } from "honox/factory";
 import blogConfig from "../../blog.config";
-import { getListMarkdownEntries } from "../../lib/content/markdown";
+import { getPostListMarkdownEntries } from "../../lib/content/markdown";
 import Counter from "../islands/counter";
 
 export default createRoute(async (c) => {
   const name = c.req.query("name") ?? "Hono";
-  const entry = getListMarkdownEntries().at(0);
+  const entry = getPostListMarkdownEntries();
 
-  if (!entry) {
+  if (entry.length === 0) {
     return c.render(
       <div class="py-8 text-center">
         <title>{name}</title>
         <h1 class="text-3xl font-bold">Hello, {name}!</h1>
         <p class="text-gray-500">
-          No markdown files found under {blogConfig.contentDir}.
+          No markdown files found under {blogConfig.postsDir}.
         </p>
         <Counter />
       </div>
     );
   }
 
-  const endpoint = new URL(`/server/markdown/${entry.slug}`, c.req.url);
-  const response = await fetch(endpoint);
+  // TODO: Get Post List Link and Title
+  // const endpoint = new URL(`/server/markdown/${entry.slug}`, c.req.url);
+  // const response = await fetch(endpoint);
 
-  if (!response.ok) {
-    return c.render(
-      <div class="py-8 text-center">
-        <title>{name}</title>
-        <h1 class="text-3xl font-bold">Hello, {name}!</h1>
-        <p class="text-gray-500">Failed to load {entry.filename}.</p>
-        <Counter />
-      </div>
-    );
-  }
+  // if (!response.ok) {
+  //   return c.render(
+  //     <div class="py-8 text-center">
+  //       <title>{name}</title>
+  //       <h1 class="text-3xl font-bold">Hello, {name}!</h1>
+  //       <p class="text-gray-500">Failed to load {entry.filename}.</p>
+  //       <Counter />
+  //     </div>
+  //   );
+  // }
 
-  const rendered = (await response.json()) as {
-    slug: string;
-    filename: string;
-    contents: string;
-  };
+  // const rendered = (await response.json()) as {
+  //   slug: string;
+  //   filename: string;
+  //   contents: string;
+  // };
 
   return c.render(
     <div class="py-8 text-center space-y-6">
-      <title>{name}</title>
+      <h1>Posts</h1>
+      {/* <title>{name}</title>
       <h1 class="text-3xl font-bold">Hello, {name}!</h1>
       <div class="text-sm text-gray-500">
         Rendering {rendered.filename} from {blogConfig.contentDir}
@@ -53,7 +55,7 @@ export default createRoute(async (c) => {
           __html: rendered.contents,
         }}
       ></div>
-      <Counter />
+      <Counter /> */}
     </div>
   );
 });

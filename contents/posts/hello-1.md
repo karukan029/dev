@@ -1,6 +1,6 @@
 # Hello World
 
-[test link](/test)
+HA HA HA HA HA
 
 ```js
 <script>
