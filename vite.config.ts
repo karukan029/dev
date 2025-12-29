@@ -41,6 +41,10 @@ export default defineConfig(({ mode }) => {
 				"@blog-config": blogConfigPath,
 			},
 		},
+		esbuild: {
+			jsx: "automatic",
+			jsxImportSource: "hono/jsx",
+		},
 		plugins: [
 			honox({
 				entry,
