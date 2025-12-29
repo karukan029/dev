@@ -1,7 +1,7 @@
 {
 	"name": "@karukan029/dev",
 	"repository": "https://github.com/karukan029/dev.git",
-	"version": "0.0.1-alpha.7",
+	"version": "0.0.1-alpha.8",
 	"type": "module",
 	"bin": {
 		"blog-runtime": "./bin/cli.js"

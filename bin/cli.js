@@ -67,7 +67,7 @@ const runSequence = async () => {
 	}
 
 	if (command === "deploy") {
-		await run("pnpm", ["build"]);
+		await run("vite", ["build"]);
 		await run(wranglerBin, ["deploy", "--config", wranglerConfig]);
 		return;
 	}
