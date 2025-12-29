@@ -5,9 +5,9 @@ import Counter from "../islands/counter";
 
 export default createRoute(async (c) => {
   const name = c.req.query("name") ?? "Hono";
-  const entry = getPostListMarkdownEntries();
+  const entries = getPostListMarkdownEntries();
 
-  if (entry.length === 0) {
+  if (entries.length === 0) {
     return c.render(
       <div class="py-8 text-center">
         <title>{name}</title>
@@ -23,6 +23,19 @@ export default createRoute(async (c) => {
   return c.render(
     <div class="py-8 text-center space-y-6">
       <h1>Posts</h1>
+      <div>
+        {entries.map((entry) => (
+          <div>
+            <a
+              key={entry.slug}
+              href={`/posts/${entry.slug}`}
+              class="text-blue-600 hover:underline text-xl"
+            >
+              {entry.slug}
+            </a>
+          </div>
+        ))}
+      </div>
     </div>
   );
 });
