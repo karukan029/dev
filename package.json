@@ -1,18 +1,12 @@
 {
 	"name": "@karukan029/dev",
 	"repository": "https://github.com/karukan029/dev.git",
-	"version": "0.0.1-alpha.5",
+	"version": "0.0.1-alpha.6",
 	"type": "module",
-	"main": "./lib/content/markdown.js",
-	"types": "./lib/content/markdown.d.ts",
 	"bin": {
 		"blog-runtime": "./bin/cli.js"
 	},
 	"exports": {
-		".": {
-			"import": "./lib/content/markdown.js",
-			"types": "./lib/content/markdown.d.ts"
-		},
 		"./config": {
 			"import": "./blog.config.js",
 			"types": "./blog.config.d.ts"
