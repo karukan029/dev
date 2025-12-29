@@ -1,5 +1,6 @@
 {
-	"name": "basic",
+	"name": "@karukan029/dev",
+	"repository": "https://github.com/karukan029/dev.git",
 	"type": "module",
 	"scripts": {
 		"dev": "vite",
