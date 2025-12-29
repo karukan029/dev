@@ -43,6 +43,11 @@ const run = (cmd, cmdArgs = []) =>
 		});
 	});
 
+const runViteBuild = async () => {
+	await run(viteBin, [...VITE_ARGS, "build", "--mode", "client"]);
+	await run(viteBin, [...VITE_ARGS, "build"]);
+};
+
 const runSequence = async () => {
 	if (command === "dev") {
 		await run(viteBin, [...VITE_ARGS, "--port", DEV_PORT]);
@@ -50,12 +55,12 @@ const runSequence = async () => {
 	}
 
 	if (command === "build") {
-		await run(viteBin, [...VITE_ARGS, "build", "--mode", "client"]);
-		await run(viteBin, [...VITE_ARGS, "build"]);
+		await runViteBuild();
 		return;
 	}
 
 	if (command === "preview") {
+		await runViteBuild();
 		await run(wranglerBin, ["dev"]);
 		return;
 	}
