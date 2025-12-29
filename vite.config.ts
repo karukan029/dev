@@ -1,3 +1,4 @@
+import { existsSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import build from "@hono/vite-build/cloudflare-workers";
@@ -10,6 +11,19 @@ import { defineConfig, loadEnv } from "vite";
 const rootDir = dirname(fileURLToPath(import.meta.url));
 const callerRoot = process.env.BLOG_RUNTIME_CWD ?? process.cwd();
 const entry = resolve(rootDir, "app/server.ts");
+const blogConfigFilenames = [
+	"blog.config.ts",
+	"blog.config.mts",
+	"blog.config.js",
+	"blog.config.mjs",
+	"blog.config.cjs",
+	"blog.config.json",
+];
+const defaultBlogConfigPath = resolve(rootDir, "blog.config.ts");
+const blogConfigPath =
+	blogConfigFilenames
+		.map((filename) => resolve(callerRoot, filename))
+		.find((candidate) => existsSync(candidate)) ?? defaultBlogConfigPath;
 
 export default defineConfig(({ mode }) => {
 	// Load env file based on mode
@@ -22,6 +36,11 @@ export default defineConfig(({ mode }) => {
 	return {
 		root: rootDir,
 		envDir: callerRoot,
+		resolve: {
+			alias: {
+				"@blog-config": blogConfigPath,
+			},
+		},
 		plugins: [
 			honox({
 				entry,
@@ -34,6 +53,9 @@ export default defineConfig(({ mode }) => {
 		],
 		server: {
 			port: 3000,
+			fs: {
+				allow: [rootDir, callerRoot],
+			},
 		},
 		ssr: {
 			external: [

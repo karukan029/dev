@@ -1,5 +1,5 @@
+import blogConfig from "@blog-config";
 import { createRoute } from "honox/factory";
-import blogConfig from "../../blog.config";
 import { getPostListMarkdownEntries } from "../../lib/content/markdown";
 import Counter from "../islands/counter";
 

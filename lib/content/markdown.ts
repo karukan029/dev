@@ -1,11 +1,11 @@
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { basename, isAbsolute, join, resolve } from "node:path";
+import blogConfig from "@blog-config";
 import rehypeSanitize from "rehype-sanitize";
 import rehypeStringify from "rehype-stringify";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import { unified } from "unified";
-import blogConfig from "../../blog.config";
 
 const hostCwd = process.env.BLOG_RUNTIME_CWD ?? process.cwd();
 const configuredDir = blogConfig.postsDir ?? "contents/posts";
