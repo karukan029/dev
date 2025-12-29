@@ -15,7 +15,6 @@
 		"check:fix": "biome check --write .",
 		"generate:openapi": "openapi-typescript http://localhost:5173/api/openapi -o lib/openapi/schema.d.ts"
 	},
-	"private": true,
 	"dependencies": {
 		"hono": "^4.9.8",
 		"honox": "^0.1.47",
