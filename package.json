@@ -3,6 +3,36 @@
 	"repository": "https://github.com/karukan029/dev.git",
 	"version": "0.0.1",
 	"type": "module",
+	"main": "./lib/content/markdown.js",
+	"types": "./lib/content/markdown.d.ts",
+	"bin": {
+		"blog-runtime": "./bin/cli.js"
+	},
+	"exports": {
+		".": {
+			"import": "./lib/content/markdown.js",
+			"types": "./lib/content/markdown.d.ts"
+		},
+		"./config": {
+			"import": "./blog.config.js",
+			"types": "./blog.config.d.ts"
+		}
+	},
+	"files": [
+		"app",
+		"bin",
+		"lib",
+		"public",
+		"blog.config.ts",
+		"blog.config.js",
+		"blog.config.d.ts",
+		"vite.config.ts",
+		"vite.config.js",
+		"wrangler.jsonc",
+		"tsconfig.json",
+		"biome.json",
+		"README.md"
+	],
 	"scripts": {
 		"dev": "vite",
 		"build": "vite build --mode client && vite build",
@@ -13,9 +43,14 @@
 		"lint:fix": "biome lint --write .",
 		"check": "biome check .",
 		"check:fix": "biome check --write .",
-		"generate:openapi": "openapi-typescript http://localhost:5173/api/openapi -o lib/openapi/schema.d.ts"
+		"generate:openapi": "openapi-typescript http://localhost:5173/api/openapi -o lib/openapi/schema.d.ts",
+		"prepublishOnly": "pnpm build"
 	},
 	"dependencies": {
+		"@hono/vite-build": "^1.3.0",
+		"@hono/vite-dev-server": "^0.18.2",
+		"@hono/vite-ssg": "^0.2.0",
+		"@tailwindcss/vite": "^4.0.9",
 		"hono": "^4.9.8",
 		"honox": "^0.1.47",
 		"openapi-fetch": "^0.15.0",
@@ -23,23 +58,19 @@
 		"rehype-stringify": "^10.0.1",
 		"remark-parse": "^11.0.0",
 		"remark-rehype": "^11.1.2",
-		"unified": "^11.0.5"
+		"tailwindcss": "^4.0.9",
+		"unified": "^11.0.5",
+		"vite": "^6.3.5",
+		"wrangler": "^4.45.3"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.2.7",
 		"@cloudflare/workers-types": "^4.20250214.0",
-		"@hono/vite-build": "^1.3.0",
-		"@hono/vite-dev-server": "^0.18.2",
-		"@hono/vite-ssg": "^0.2.0",
-		"@tailwindcss/vite": "^4.0.9",
 		"@types/debug": "^4.1.12",
 		"@types/node": "^24.10.0",
 		"debug": "^4.4.3",
 		"openapi-typescript": "^7.10.1",
-		"pnpm": "^10.17.0",
-		"tailwindcss": "^4.0.9",
-		"vite": "^6.3.5",
-		"wrangler": "^4.45.3"
+		"pnpm": "^10.17.0"
 	},
 	"volta": {
 		"node": "22.19.0"

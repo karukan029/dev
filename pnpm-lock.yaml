@@ -4,10 +4,25 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  dev-blog: link:../dev-blog
+
 importers:
 
   .:
     dependencies:
+      '@hono/vite-build':
+        specifier: ^1.3.0
+        version: 1.7.0(hono@4.9.8)
+      '@hono/vite-dev-server':
+        specifier: ^0.18.2
+        version: 0.18.3(hono@4.9.8)(miniflare@4.20251011.1)(wrangler@4.45.3(@cloudflare/workers-types@4.20250922.0))
+      '@hono/vite-ssg':
+        specifier: ^0.2.0
+        version: 0.2.0(hono@4.9.8)
+      '@tailwindcss/vite':
+        specifier: ^4.0.9
+        version: 4.1.13(vite@6.3.6(@types/node@24.10.0)(jiti@2.5.1)(lightningcss@1.30.1))
       hono:
         specifier: ^4.9.8
         version: 4.9.8
@@ -29,9 +44,18 @@ importers:
       remark-rehype:
         specifier: ^11.1.2
         version: 11.1.2
+      tailwindcss:
+        specifier: ^4.0.9
+        version: 4.1.13
       unified:
         specifier: ^11.0.5
         version: 11.0.5
+      vite:
+        specifier: ^6.3.5
+        version: 6.3.6(@types/node@24.10.0)(jiti@2.5.1)(lightningcss@1.30.1)
+      wrangler:
+        specifier: ^4.45.3
+        version: 4.45.3(@cloudflare/workers-types@4.20250922.0)
     devDependencies:
       '@biomejs/biome':
         specifier: ^2.2.7
@@ -39,18 +63,6 @@ importers:
       '@cloudflare/workers-types':
         specifier: ^4.20250214.0
         version: 4.20250922.0
-      '@hono/vite-build':
-        specifier: ^1.3.0
-        version: 1.7.0(hono@4.9.8)
-      '@hono/vite-dev-server':
-        specifier: ^0.18.2
-        version: 0.18.3(hono@4.9.8)(miniflare@4.20251011.1)(wrangler@4.45.3(@cloudflare/workers-types@4.20250922.0))
-      '@hono/vite-ssg':
-        specifier: ^0.2.0
-        version: 0.2.0(hono@4.9.8)
-      '@tailwindcss/vite':
-        specifier: ^4.0.9
-        version: 4.1.13(vite@6.3.6(@types/node@24.10.0)(jiti@2.5.1)(lightningcss@1.30.1))
       '@types/debug':
         specifier: ^4.1.12
         version: 4.1.12
@@ -66,15 +78,6 @@ importers:
       pnpm:
         specifier: ^10.17.0
         version: 10.17.0
-      tailwindcss:
-        specifier: ^4.0.9
-        version: 4.1.13
-      vite:
-        specifier: ^6.3.5
-        version: 6.3.6(@types/node@24.10.0)(jiti@2.5.1)(lightningcss@1.30.1)
-      wrangler:
-        specifier: ^4.45.3
-        version: 4.45.3(@cloudflare/workers-types@4.20250922.0)
 
 packages:
 
