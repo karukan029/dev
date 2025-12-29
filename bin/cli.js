@@ -15,6 +15,7 @@ const command = args[0];
 const viteBin = join(packageRoot, "node_modules", ".bin", "vite");
 const wranglerBin = join(packageRoot, "node_modules", ".bin", "wrangler");
 const viteConfig = join(packageRoot, "vite.config.ts");
+const wranglerConfig = join(packageRoot, "wrangler.jsonc");
 const VITE_ARGS = ["--config", viteConfig];
 
 const DEV_PORT = process.env.BLOG_RUNTIME_PORT ?? "3000";
@@ -61,13 +62,13 @@ const runSequence = async () => {
 
 	if (command === "preview") {
 		await runViteBuild();
-		await run(wranglerBin, ["dev"]);
+		await run(wranglerBin, ["dev", "--config", wranglerConfig]);
 		return;
 	}
 
 	if (command === "deploy") {
 		await run("pnpm", ["build"]);
-		await run(wranglerBin, ["deploy"]);
+		await run(wranglerBin, ["deploy", "--config", wranglerConfig]);
 		return;
 	}
 
