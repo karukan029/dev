@@ -2,7 +2,6 @@
 import { spawn } from "node:child_process";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import wrangler from "wrangler";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -13,7 +12,7 @@ const command = process.argv[2];
 
 // Use binaries from the runtime package's node_modules
 const viteBin = join(packageRoot, "node_modules", ".bin", "vite");
-// const wranglerBin = join(packageRoot, "node_modules", ".bin", "wrangler");
+const wranglerBin = join(packageRoot, "node_modules", ".bin", "wrangler");
 const viteConfig = join(packageRoot, "vite.config.ts");
 const wranglerConfig = join(packageRoot, "wrangler.jsonc");
 const VITE_ARGS = ["--config", viteConfig];
@@ -62,13 +61,13 @@ const runSequence = async () => {
 
 	if (command === "preview") {
 		await runViteBuild();
-		await run(wrangler, ["dev", "--config", wranglerConfig]);
+		await run(wranglerBin, ["dev", "--config", wranglerConfig]);
 		return;
 	}
 
 	if (command === "deploy") {
 		await run("vite", ["build"]);
-		await run(wrangler, ["deploy", "--config", wranglerConfig]);
+		await run(wranglerBin, ["deploy", "--config", wranglerConfig]);
 		return;
 	}
 
