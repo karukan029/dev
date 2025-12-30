@@ -14,7 +14,7 @@ const command = process.argv[2];
 const viteBin = join(packageRoot, "node_modules", ".bin", "vite");
 const wranglerBin = join(packageRoot, "node_modules", ".bin", "wrangler");
 const viteConfig = join(packageRoot, "vite.config.ts");
-const wranglerConfig = join(packageRoot, "wrangler.jsonc");
+const wranglerConfig = join(projectRoot, "wrangler.jsonc");
 const VITE_ARGS = ["--config", viteConfig];
 
 const DEV_PORT = process.env.BLOG_RUNTIME_PORT ?? "3000";
