@@ -1,7 +1,7 @@
 {
 	"name": "@karukan029/dev",
 	"repository": "https://github.com/karukan029/dev.git",
-	"version": "0.0.1-alpha.14",
+	"version": "0.0.1-alpha.15",
 	"type": "module",
 	"bin": {
 		"dev-cli": "./bin/cli.js"

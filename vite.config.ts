@@ -41,6 +41,9 @@ export default defineConfig(({ mode }) => {
 				"@dev-config": devConfigPath,
 			},
 		},
+		build: {
+			outDir: resolve(callerRoot, "dist"),
+		},
 		esbuild: {
 			jsx: "automatic",
 			jsxImportSource: "hono/jsx",
