@@ -8,8 +8,7 @@ const __dirname = dirname(__filename);
 const packageRoot = join(__dirname, "..");
 const projectRoot = process.cwd();
 
-const args = process.argv.slice(2);
-const command = args[0];
+const command = process.argv[2];
 
 // Use binaries from the runtime package's node_modules
 const viteBin = join(packageRoot, "node_modules", ".bin", "vite");
