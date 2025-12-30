@@ -44,7 +44,6 @@ const run = (cmd, cmdArgs = []) =>
 	});
 
 const runViteBuild = async () => {
-	await run(viteBin, [...VITE_ARGS, "build", "--mode", "client"]);
 	await run(viteBin, [...VITE_ARGS, "build"]);
 };
 
@@ -66,7 +65,7 @@ const runSequence = async () => {
 	}
 
 	if (command === "deploy") {
-		await run("vite", ["build"]);
+		await runViteBuild();
 		await run(wranglerBin, ["deploy", "--config", wranglerConfig]);
 		return;
 	}
