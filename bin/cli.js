@@ -45,6 +45,7 @@ const run = (cmd, cmdArgs = []) =>
 
 const runViteBuild = async () => {
 	await run(viteBin, [...VITE_ARGS, "build"]);
+	await run("cp", ["-r", join(packageRoot, "dist"), join(projectRoot, "dist")]);
 };
 
 const runSequence = async () => {
