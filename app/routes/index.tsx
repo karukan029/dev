@@ -1,4 +1,4 @@
-import blogConfig from "@blog-config";
+import devConfig from "@dev-config";
 import { createRoute } from "honox/factory";
 import { getPostListMarkdownEntries } from "../../lib/content/markdown";
 import Counter from "../islands/counter";
@@ -13,7 +13,7 @@ export default createRoute(async (c) => {
         <title>{name}</title>
         <h1 class="text-3xl font-bold">Hello, {name}!</h1>
         <p class="text-gray-500">
-          No markdown files found under {blogConfig.postsDir}.
+          No markdown files found under {devConfig.postsDir}.
         </p>
         <Counter />
       </div>

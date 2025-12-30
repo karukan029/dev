@@ -11,19 +11,19 @@ import { defineConfig, loadEnv } from "vite";
 const rootDir = dirname(fileURLToPath(import.meta.url));
 const callerRoot = process.env.BLOG_RUNTIME_CWD ?? process.cwd();
 const entry = resolve(rootDir, "app/server.ts");
-const blogConfigFilenames = [
-	"blog.config.ts",
-	"blog.config.mts",
-	"blog.config.js",
-	"blog.config.mjs",
-	"blog.config.cjs",
-	"blog.config.json",
+const devConfigFilenames = [
+	"dev.config.ts",
+	"dev.config.mts",
+	"dev.config.js",
+	"dev.config.mjs",
+	"dev.config.cjs",
+	"dev.config.json",
 ];
-const defaultBlogConfigPath = resolve(rootDir, "blog.config.ts");
-const blogConfigPath =
-	blogConfigFilenames
+const defaultDevConfigPath = resolve(rootDir, "dev.config.ts");
+const devConfigPath =
+	devConfigFilenames
 		.map((filename) => resolve(callerRoot, filename))
-		.find((candidate) => existsSync(candidate)) ?? defaultBlogConfigPath;
+		.find((candidate) => existsSync(candidate)) ?? defaultDevConfigPath;
 
 export default defineConfig(({ mode }) => {
 	// Load env file based on mode
@@ -38,7 +38,7 @@ export default defineConfig(({ mode }) => {
 		envDir: callerRoot,
 		resolve: {
 			alias: {
-				"@blog-config": blogConfigPath,
+				"@dev-config": devConfigPath,
 			},
 		},
 		esbuild: {

@@ -1,4 +1,4 @@
-export type BlogRuntimeConfig = {
+export type DevConfig = {
 	/** Directory path where markdown or mdx posts are stored */
 	postsDir: string;
 	/** Route configuration */
@@ -10,7 +10,7 @@ export type BlogRuntimeConfig = {
 	};
 };
 
-const config: BlogRuntimeConfig = {
+const config: DevConfig = {
 	postsDir: "contents/posts",
 	routes: {
 		postsPrefix: "/posts",

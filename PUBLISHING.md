@@ -46,26 +46,26 @@ npm publish
 3. Use the CLI:
    ```bash
    # Development
-   npx blog-runtime dev
+   npx dev-cli dev
 
    # Build
-   npx blog-runtime build
+   npx dev-cli build
 
    # Preview
-   npx blog-runtime preview
+   npx dev-cli preview
 
    # Deploy
-   npx blog-runtime deploy
+   npx dev-cli deploy
    ```
 
 4. Or add to package.json scripts:
    ```json
    {
      "scripts": {
-       "dev": "blog-runtime dev",
-       "build": "blog-runtime build",
-       "preview": "blog-runtime preview",
-       "deploy": "blog-runtime deploy"
+       "dev": "dev-cli dev",
+       "build": "dev-cli build",
+       "preview": "dev-cli preview",
+       "deploy": "dev-cli deploy"
      }
    }
    ```
