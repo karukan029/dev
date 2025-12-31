@@ -11,6 +11,12 @@ export default createRoute(async (c) => {
 
   return c.render(
     <article class="container mx-auto py-8 px-4">
+      {rendered.frontmatter?.title && (
+        <h1 class="text-4xl font-bold mb-4">{rendered.frontmatter.title}</h1>
+      )}
+      {rendered.frontmatter?.description && (
+        <p class="text-gray-600 mb-8">{rendered.frontmatter.description}</p>
+      )}
       <div class="prose prose-lg mx-auto">
         <div
           dangerouslySetInnerHTML={{

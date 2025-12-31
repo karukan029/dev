@@ -1,8 +1,10 @@
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { basename, isAbsolute, join, resolve } from "node:path";
 import devConfig from "@dev-config";
+import type { Root } from "mdast";
 import rehypeSanitize from "rehype-sanitize";
 import rehypeStringify from "rehype-stringify";
+import remarkFrontmatter from "remark-frontmatter";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import { unified } from "unified";
@@ -92,14 +94,79 @@ const resolveMarkdownFileBySlug = (
 	return entry;
 };
 
+// Simple YAML frontmatter parser
+const parseSimpleYaml = (
+	yamlString: string,
+): Record<string, string | string[]> => {
+	console.log(yamlString);
+
+	const lines = yamlString.split("\n");
+	const result: Record<string, string | string[]> = {};
+
+	for (const line of lines) {
+		const trimmed = line.trim();
+		if (!trimmed || trimmed.startsWith("#")) continue;
+
+		// Match key: value or key: "value" or key: [array]
+		const match = trimmed.match(/^([^:]+):\s*(.*)$/);
+		if (!match) continue;
+
+		const key = match[1].trim();
+		const value = match[2].trim();
+
+		// Remove quotes from string values
+		if (
+			(value.startsWith('"') && value.endsWith('"')) ||
+			(value.startsWith("'") && value.endsWith("'"))
+		) {
+			result[key] = value.slice(1, -1);
+			continue;
+		}
+
+		// Parse arrays: ["item1","item2"] or ["item1", "item2"]
+		if (value.startsWith("[") && value.endsWith("]")) {
+			const arrayContent = value.slice(1, -1);
+			result[key] = arrayContent
+				.split(",")
+				.map((item) => item.trim().replace(/^["']|["']$/g, ""))
+				.filter((item) => item.length > 0);
+			continue;
+		}
+
+		// Plain value
+		result[key] = value;
+	}
+
+	return result;
+};
+
 const renderMarkdownString = async (markdown: string) => {
+	let frontmatter: Record<string, string | string[]> = {};
+
+	const extractFrontmatter = () => (tree: Root) => {
+		const yamlNode = tree.children.find(
+			(node: Root["children"][number]) => node.type === "yaml",
+		);
+		if (!yamlNode) {
+			return;
+		}
+
+		frontmatter = parseSimpleYaml(yamlNode.value) || {};
+	};
+
 	const file = await unified()
 		.use(remarkParse)
+		.use(remarkFrontmatter, ["yaml"])
+		.use(extractFrontmatter)
 		.use(remarkRehype)
 		.use(rehypeSanitize)
 		.use(rehypeStringify)
 		.process(markdown);
-	return file.toString();
+
+	return {
+		html: file.toString(),
+		frontmatter,
+	};
 };
 
 export const renderMarkdownBySlug = async (slug: string) => {
@@ -109,11 +176,12 @@ export const renderMarkdownBySlug = async (slug: string) => {
 	}
 
 	const markdown = readFileSync(entry.filePath, { encoding: "utf8" });
-	const html = await renderMarkdownString(markdown);
+	const { html, frontmatter } = await renderMarkdownString(markdown);
 
 	return {
 		...entry,
 		markdown,
 		html,
+		frontmatter,
 	};
 };
