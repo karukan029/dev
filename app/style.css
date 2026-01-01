@@ -1,6 +1,13 @@
 @import "tailwindcss" source("../app");
 
 @layer base {
+  html,
+  body {
+    color: #3e3e3e;
+    font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN",
+      "Hiragino Sans", Meiryo, sans-serif;
+  }
+
   h2 {
     @apply text-4xl font-semibold mb-6;
   }
