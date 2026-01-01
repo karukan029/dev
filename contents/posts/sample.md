@@ -5,18 +5,16 @@ description: "Hello everyone!! This post is sample post."
 topics: ["React","TypeScript"]
 ---
 
-# h1
-
 ## h2
 
 ### h3
 
 [https://github.com/karukan029](https://github.com/karukan029)
 
-`code snipet`
+`code snipet` and text
 
-```
-code block
+```ts
+const code = "block"
 ```
 
 first line

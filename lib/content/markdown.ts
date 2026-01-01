@@ -1,6 +1,7 @@
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { basename, isAbsolute, join, resolve } from "node:path";
 import devConfig from "@dev-config";
+import rehypeShiki from "@shikijs/rehype";
 import type { Root } from "mdast";
 import rehypeSanitize from "rehype-sanitize";
 import rehypeStringify from "rehype-stringify";
@@ -98,8 +99,6 @@ const resolveMarkdownFileBySlug = (
 const parseSimpleYaml = (
 	yamlString: string,
 ): Record<string, string | string[]> => {
-	console.log(yamlString);
-
 	const lines = yamlString.split("\n");
 	const result: Record<string, string | string[]> = {};
 
@@ -160,6 +159,11 @@ const renderMarkdownString = async (markdown: string) => {
 		.use(extractFrontmatter)
 		.use(remarkRehype)
 		.use(rehypeSanitize)
+		.use(rehypeShiki, {
+			themes: {
+				light: "github-dark",
+			},
+		})
 		.use(rehypeStringify)
 		.process(markdown);
 

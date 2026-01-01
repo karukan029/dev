@@ -1,7 +1,7 @@
 {
 	"name": "@karukan029/dev",
 	"repository": "https://github.com/karukan029/dev.git",
-	"version": "0.0.1-alpha.17",
+	"version": "0.0.1-alpha.18",
 	"type": "module",
 	"bin": {
 		"dev-cli": "./bin/cli.js"
@@ -44,6 +44,7 @@
 		"@hono/vite-build": "^1.3.0",
 		"@hono/vite-dev-server": "^0.18.2",
 		"@hono/vite-ssg": "^0.2.0",
+		"@shikijs/rehype": "^3.20.0",
 		"@tailwindcss/vite": "^4.0.9",
 		"hono": "^4.9.8",
 		"honox": "^0.1.47",
@@ -54,6 +55,7 @@
 		"remark-frontmatter": "^5.0.0",
 		"remark-parse": "^11.0.0",
 		"remark-rehype": "^11.1.2",
+		"shiki": "^3.20.0",
 		"tailwindcss": "^4.0.9",
 		"unified": "^11.0.5",
 		"vite": "^6.3.5",
