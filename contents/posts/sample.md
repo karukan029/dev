@@ -3,6 +3,7 @@ title: "Post Title"
 icon: "tea-cup"
 description: "Hello everyone!! This post is sample post."
 topics: ["React","TypeScript"]
+private: true
 ---
 
 ## h2

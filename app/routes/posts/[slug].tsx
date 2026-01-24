@@ -9,6 +9,10 @@ export default createRoute(async (c) => {
     return c.notFound();
   }
 
+  if (import.meta.env.PROD && rendered.frontmatter?.private) {
+    return c.notFound();
+  }
+
   return c.render(
     <article class="container mx-auto py-8 px-4 max-w-4xl">
       {rendered.frontmatter?.title && (
@@ -22,6 +26,6 @@ export default createRoute(async (c) => {
           __html: rendered.html,
         }}
       />
-    </article>
+    </article>,
   );
 });
