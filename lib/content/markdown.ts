@@ -21,6 +21,9 @@ type PostMarkdownEntry = {
 	slug: string;
 	filePath: string;
 	filename: string;
+	extension: string;
+	title?: string;
+	private?: boolean;
 };
 
 const makeSlug = (filename: string) => {
@@ -34,6 +37,25 @@ const makeSlug = (filename: string) => {
 
 const isMarkdownFile = (filename: string): boolean => {
 	return supportedMarkdownExtensions.some((ext) => filename.endsWith(ext));
+};
+
+// Extract frontmatter from markdown file
+const extractFrontmatterFromFile = (
+	filePath: string,
+): Record<string, string | string[]> => {
+	try {
+		const content = readFileSync(filePath, "utf8");
+		const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---/);
+
+		if (!frontmatterMatch) {
+			return {};
+		}
+
+		return parseSimpleYaml(frontmatterMatch[1]);
+	} catch (error) {
+		console.error(`Error reading frontmatter from ${filePath}:`, error);
+		return {};
+	}
 };
 
 export const getPostListMarkdownEntries = (): PostMarkdownEntry[] => {
@@ -62,10 +84,27 @@ export const getPostListMarkdownEntries = (): PostMarkdownEntry[] => {
 
 		const slug = makeSlug(item.name);
 
+		// 拡張子を取得
+		const extension =
+			supportedMarkdownExtensions.find((ext) => item.name.endsWith(ext)) ?? "";
+
+		// frontmatterを読み取る
+		const frontmatter = extractFrontmatterFromFile(fullPath);
+
+		// privateフラグの処理
+		const privateValue =
+			typeof frontmatter.private === "string"
+				? frontmatter.private === "true"
+				: undefined;
+
 		return {
 			filename: item.name,
 			slug,
 			filePath: fullPath,
+			extension,
+			title:
+				typeof frontmatter.title === "string" ? frontmatter.title : undefined,
+			private: privateValue,
 		};
 	});
 };

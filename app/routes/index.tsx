@@ -5,7 +5,9 @@ import Counter from "../islands/counter";
 
 export default createRoute(async (c) => {
   const name = c.req.query("name") ?? "Hono";
-  const entries = getPostListMarkdownEntries();
+  const entries = import.meta.env.PROD
+    ? getPostListMarkdownEntries().filter((entry) => entry.private !== true)
+    : getPostListMarkdownEntries();
 
   if (entries.length === 0) {
     return c.render(
@@ -16,7 +18,7 @@ export default createRoute(async (c) => {
           No markdown files found under {devConfig.postsDir}.
         </p>
         <Counter />
-      </div>
+      </div>,
     );
   }
 
@@ -25,17 +27,16 @@ export default createRoute(async (c) => {
       <h1>Posts</h1>
       <div>
         {entries.map((entry) => (
-          <div>
+          <div key={entry.slug}>
             <a
-              key={entry.slug}
               href={`/posts/${entry.slug}`}
               class="text-blue-600 hover:underline text-xl"
             >
-              {entry.slug}
+              {entry.title ?? entry.slug}
             </a>
           </div>
         ))}
       </div>
-    </div>
+    </div>,
   );
 });
