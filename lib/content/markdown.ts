@@ -17,6 +17,9 @@ const postsDirectory = isAbsolute(configuredDir)
 	: resolve(hostCwd, configuredDir);
 const supportedMarkdownExtensions = [".md", ".mdx"] as const;
 
+const resolveDirectory = (dir: string): string =>
+	isAbsolute(dir) ? dir : resolve(hostCwd, dir);
+
 type PostMarkdownEntry = {
 	slug: string;
 	filePath: string;
@@ -24,6 +27,22 @@ type PostMarkdownEntry = {
 	extension: string;
 	title?: string;
 	private?: boolean;
+};
+
+export type MarkdownEntry = {
+	slug: string;
+	filePath: string;
+	filename: string;
+	extension: string;
+	title?: string;
+	private?: boolean;
+	category?: string;
+	tags?: string[];
+	status?: string;
+	related?: string[];
+	sources?: string[];
+	created?: string;
+	updated?: string;
 };
 
 const makeSlug = (filename: string) => {
@@ -215,6 +234,92 @@ const renderMarkdownString = async (markdown: string) => {
 export const renderMarkdownBySlug = async (slug: string) => {
 	const entry = resolveMarkdownFileBySlug(slug);
 	if (!entry) {
+		return;
+	}
+
+	const markdown = readFileSync(entry.filePath, { encoding: "utf8" });
+	const { html, frontmatter } = await renderMarkdownString(markdown);
+
+	return {
+		...entry,
+		markdown,
+		html,
+		frontmatter,
+	};
+};
+
+// --- Generic content directory functions ---
+
+const toStringArray = (
+	value: string | string[] | undefined,
+): string[] | undefined => {
+	if (Array.isArray(value)) return value;
+	if (typeof value === "string") return [value];
+	return undefined;
+};
+
+const toOptionalString = (
+	value: string | string[] | undefined,
+): string | undefined => {
+	if (typeof value === "string") return value;
+	return undefined;
+};
+
+export const getMarkdownEntries = (directory: string): MarkdownEntry[] => {
+	const dir = resolveDirectory(directory);
+	if (!existsSync(dir)) {
+		return [];
+	}
+
+	const items = readdirSync(dir, { withFileTypes: true });
+
+	return items
+		.filter((item) => {
+			if (item.isDirectory()) return false;
+			if (!isMarkdownFile(item.name)) return false;
+			// Exclude _index.md (reserved for wiki index)
+			if (item.name === "_index.md") return false;
+			return true;
+		})
+		.map((item) => {
+			const fullPath = join(dir, item.name);
+			const slug = makeSlug(item.name);
+			const extension =
+				supportedMarkdownExtensions.find((ext) => item.name.endsWith(ext)) ??
+				"";
+			const frontmatter = extractFrontmatterFromFile(fullPath);
+
+			const privateValue =
+				typeof frontmatter.private === "string"
+					? frontmatter.private === "true"
+					: undefined;
+
+			return {
+				filename: item.name,
+				slug,
+				filePath: fullPath,
+				extension,
+				title: toOptionalString(frontmatter.title),
+				private: privateValue,
+				category: toOptionalString(frontmatter.category),
+				tags: toStringArray(frontmatter.tags),
+				status: toOptionalString(frontmatter.status),
+				related: toStringArray(frontmatter.related),
+				sources: toStringArray(frontmatter.sources),
+				created: toOptionalString(frontmatter.created),
+				updated: toOptionalString(frontmatter.updated),
+			};
+		});
+};
+
+export const renderMarkdownFromDir = async (
+	directory: string,
+	slug: string,
+) => {
+	const entries = getMarkdownEntries(directory);
+	const entry = entries.find((e) => e.slug === slug);
+
+	if (!entry || !existsSync(entry.filePath)) {
 		return;
 	}
 
