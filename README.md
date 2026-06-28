@@ -9,11 +9,17 @@ A modern web application built with HonoX and Cloudflare Workers.
 - [Vite](https://vitejs.dev/) - Build tool
 - [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
 - [TypeScript](https://www.typescriptlang.org/) - Type-safe JavaScript
+- [unified](https://unifiedjs.com/) (remark / rehype) + [Shiki](https://shiki.style/) - Markdown rendering & syntax highlighting
+- [Biome](https://biomejs.dev/) - Formatter & linter
+
+This repository is both a runnable app and a package published to GitHub Packages,
+which can be consumed as a CLI (`dev-cli`) from a separate content repository.
+See [PUBLISHING.md](./PUBLISHING.md) for details.
 
 ## Prerequisites
 
-- Node.js 22.19.0 (managed by Volta)
-- pnpm
+- Node.js 24.18.0 (managed by [Volta](https://volta.sh/))
+- pnpm 10.16+ (the repo enables the `minimumReleaseAge` supply-chain safeguard, which requires pnpm >= 10.16)
 
 ## Setup
 
@@ -23,6 +29,11 @@ A modern web application built with HonoX and Cloudflare Workers.
 ```bash
 pnpm install
 ```
+
+   > Dependency resolution is protected by a release cooldown: `minimumReleaseAge: 10080`
+   > in `pnpm-workspace.yaml` makes pnpm resolve only package versions that have been
+   > public for at least 7 days, mitigating supply-chain attacks via freshly published
+   > malicious versions. Use `minimumReleaseAgeExclude` to bypass it for specific versions.
 
 3. Copy `.env.sample` to `.env` and configure your environment variables:
 ```bash
@@ -45,6 +56,40 @@ Environment variables are accessed via `process.env` thanks to the `nodejs_compa
 | `READ_API_KEY` | API key for CMS read access | Yes |
 
 Type definitions for environment variables are available in `app/global.d.ts`.
+
+## Content
+
+Blog posts are Markdown (`.md` / `.mdx`) files. By default they live in
+`contents/posts/` and are served under `/posts/<slug>`. Each post supports
+frontmatter:
+
+```md
+---
+title: "Post Title"
+description: "Short summary"
+topics: ["React", "TypeScript"]
+icon: "tea-cup"
+private: true
+---
+
+Post body in Markdown...
+```
+
+Set `private: true` to keep a post out of the public list (handled in
+`app/routes/posts/_middleware.ts` and `lib/content/markdown.ts`). Code blocks are
+highlighted at build time with Shiki.
+
+The content source and routing are configured in `dev.config.ts`:
+
+```ts
+const config: DevConfig = {
+  postsDir: "contents/posts",        // where Markdown posts are read from
+  routes: {
+    postsPrefix: "/posts",           // base path for posts
+    indexBehavior: "directory",      // "directory" | "explicit"
+  },
+};
+```
 
 ## Development
 
@@ -120,18 +165,36 @@ This fetches the OpenAPI schema from the running dev server and generates type d
 
 ```
 app/
-  routes/         # Application routes
-  islands/        # Interactive components
-  client.ts       # Client entry point
-  server.ts       # Server entry point
-  style.css       # Global styles
-  global.d.ts     # Global type definitions
+  routes/
+    posts/
+      [slug].tsx        # Individual post page (SSG)
+      _middleware.ts    # Post route middleware (SSG params)
+    server/
+      markdown/         # Server API route for markdown
+    index.tsx           # Home / post list
+    _renderer.tsx       # HTML renderer
+    _404.tsx            # Not found page
+    _error.tsx          # Error page
+  islands/
+    counter.tsx         # Interactive island component
+  client.ts             # Client entry point
+  server.ts             # Server entry point
+  style.css             # Global styles
+  global.d.ts           # Global type definitions
 lib/
-  openapi/        # OpenAPI client and schema
-  dist/               # Build output
-  wrangler.jsonc      # Cloudflare Workers configuration
-  vite.config.ts      # Vite configuration
-  package.json        # Project dependencies
+  content/
+    markdown.ts         # Markdown loading & rendering
+  openapi/
+    apiClient.ts        # Typed OpenAPI client
+    schema.d.ts         # Generated OpenAPI types
+contents/
+  posts/                # Markdown posts (configurable via dev.config.ts)
+bin/
+  cli.js                # `dev-cli` entry point
+public/                 # Static assets
+dev.config.ts           # Content & routing configuration
+vite.config.ts          # Vite configuration
+wrangler.jsonc          # Cloudflare Workers configuration
 ```
 
 ## Features
@@ -140,6 +203,9 @@ lib/
 - Static Site Generation (SSG)
 - Island architecture for interactive components
 - Type-safe API client with OpenAPI
-- Markdown rendering support
+- Markdown rendering with frontmatter and Shiki syntax highlighting
+- Private posts (`private: true` frontmatter)
+- Configurable content directory and routing via `dev.config.ts`
+- Distributable as a CLI package (`dev-cli`)
 - Tailwind CSS for styling
 
