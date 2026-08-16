@@ -1,16 +1,9 @@
 {
 	"name": "@karukan029/dev",
-	"repository": "https://github.com/karukan029/dev.git",
 	"version": "0.0.1-alpha.22",
-	"type": "module",
+	"repository": "https://github.com/karukan029/dev.git",
 	"bin": {
 		"dev-cli": "./bin/cli.js"
-	},
-	"exports": {
-		"./config": {
-			"import": "./blog.config.js",
-			"types": "./blog.config.d.ts"
-		}
 	},
 	"files": [
 		"app",
@@ -24,20 +17,28 @@
 		"vite.config.js",
 		"wrangler.jsonc",
 		"tsconfig.json",
-		"biome.json",
+		".oxlintrc.json",
+		".oxfmtrc.json",
 		"README.md"
 	],
+	"type": "module",
+	"exports": {
+		"./config": {
+			"import": "./blog.config.js",
+			"types": "./blog.config.d.ts"
+		}
+	},
 	"scripts": {
 		"dev": "vite",
 		"build": "vite build --mode client && vite build",
 		"build:cli": "vite build --config vite.config.cli.ts",
 		"preview": "vite build && wrangler dev",
 		"deploy": "vite build && wrangler deploy",
-		"format": "biome format --write .",
-		"lint": "biome lint .",
-		"lint:fix": "biome lint --write .",
-		"check": "biome check .",
-		"check:fix": "biome check --write .",
+		"format": "oxfmt",
+		"lint": "oxlint",
+		"lint:fix": "oxlint --fix",
+		"check": "oxlint && oxfmt --check",
+		"check:fix": "oxlint --fix && oxfmt",
 		"check:cli": "tsc -p tsconfig.cli.json",
 		"generate:openapi": "openapi-typescript http://localhost:5173/api/openapi -o lib/openapi/schema.d.ts",
 		"prepack": "pnpm build:cli && vite build"
@@ -64,13 +65,14 @@
 		"wrangler": "^4.45.3"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "^2.2.7",
 		"@cloudflare/workers-types": "^4.20250214.0",
 		"@types/debug": "^4.1.12",
 		"@types/mdast": "^4.0.4",
 		"@types/node": "^24.10.0",
 		"debug": "^4.4.3",
 		"openapi-typescript": "^7.10.1",
+		"oxfmt": "^0.63.0",
+		"oxlint": "^1.78.0",
 		"typescript": "^5.9.3"
 	},
 	"volta": {

@@ -80,7 +80,7 @@ pnpm deploy
 
 ## Code Quality
 
-This project uses [Biome](https://biomejs.dev/) for code formatting and linting.
+This project uses [oxc](https://oxc.rs/) tools: [oxfmt](https://oxc.rs/docs/guide/usage/formatter) for code formatting and [oxlint](https://oxc.rs/docs/guide/usage/linter) for linting.
 
 Format code:
 ```bash
