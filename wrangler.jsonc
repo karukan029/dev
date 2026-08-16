@@ -6,11 +6,11 @@
 	"compatibility_date": "2025-09-22",
 	"compatibility_flags": [
 		"nodejs_compat",
-		"nodejs_compat_populate_process_env"
+		"nodejs_compat_populate_process_env",
 	],
 	"assets": {
-		"directory": "./dist"
-	}
+		"directory": "./dist",
+	},
 	// "vars": {
 	//   "MY_VAR": "my-variable"
 	// },
