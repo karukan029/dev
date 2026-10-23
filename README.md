@@ -10,7 +10,7 @@ A modern web application built with HonoX and Cloudflare Workers.
 - [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
 - [TypeScript](https://www.typescriptlang.org/) - Type-safe JavaScript
 - [unified](https://unifiedjs.com/) (remark / rehype) + [Shiki](https://shiki.style/) - Markdown rendering & syntax highlighting
-- [Biome](https://biomejs.dev/) - Formatter & linter
+- [oxc](https://oxc.rs/) (oxlint / oxfmt) - Linter & formatter
 
 This repository is both a runnable app and a package published to GitHub Packages,
 which can be consumed as a CLI (`dev-cli`) from a separate content repository.
@@ -18,7 +18,7 @@ See [PUBLISHING.md](./PUBLISHING.md) for details.
 
 ## Prerequisites
 
-- Node.js 24.18.0 (managed by [Volta](https://volta.sh/))
+- Node.js 24.22.1 (pinned in `.mise.toml` / managed by [mise](https://mise.jdx.dev/) or [Volta](https://volta.sh/))
 - pnpm 10.16+ (the repo enables the `minimumReleaseAge` supply-chain safeguard, which requires pnpm >= 10.16)
 
 ## Setup
@@ -125,7 +125,7 @@ pnpm deploy
 
 ## Code Quality
 
-This project uses [Biome](https://biomejs.dev/) for code formatting and linting.
+This project uses [oxc](https://oxc.rs/) tools: [oxfmt](https://oxc.rs/docs/guide/usage/formatter) for code formatting and [oxlint](https://oxc.rs/docs/guide/usage/linter) for linting.
 
 Format code:
 ```bash
@@ -182,6 +182,7 @@ app/
   style.css             # Global styles
   global.d.ts           # Global type definitions
 lib/
+  cli.ts                # `dev-cli` entry point (built to bin/cli.js)
   content/
     markdown.ts         # Markdown loading & rendering
   openapi/
@@ -189,8 +190,6 @@ lib/
     schema.d.ts         # Generated OpenAPI types
 contents/
   posts/                # Markdown posts (configurable via dev.config.ts)
-bin/
-  cli.js                # `dev-cli` entry point
 public/                 # Static assets
 dev.config.ts           # Content & routing configuration
 vite.config.ts          # Vite configuration

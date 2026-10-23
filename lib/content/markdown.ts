@@ -117,7 +117,7 @@ const resolveMarkdownFileBySlug = (
 	}
 
 	const entry = getPostListMarkdownEntries().find(
-		(entry) => entry.slug === slug,
+		(markdownEntry) => markdownEntry.slug === slug,
 	);
 
 	if (!entry || !isMarkdownFile(entry.filename)) {

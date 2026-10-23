@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 import { spawn } from "node:child_process";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -19,13 +18,13 @@ const VITE_ARGS = ["--config", viteConfig];
 
 const DEV_PORT = process.env.BLOG_RUNTIME_PORT ?? "3000";
 
-const makeEnv = () => ({
+const makeEnv = (): NodeJS.ProcessEnv => ({
 	...process.env,
 	BLOG_RUNTIME_CWD: projectRoot,
 	PATH: `${join(packageRoot, "node_modules", ".bin")}:${process.env.PATH}`,
 });
 
-const run = (cmd, cmdArgs = []) =>
+const run = (cmd: string, cmdArgs: string[] = []): Promise<void> =>
 	new Promise((resolve, reject) => {
 		const child = spawn(cmd, cmdArgs, {
 			stdio: "inherit",
@@ -43,14 +42,14 @@ const run = (cmd, cmdArgs = []) =>
 		});
 	});
 
-const runViteBuild = async () => {
+const runViteBuild = async (): Promise<void> => {
 	await run(viteBin, [...VITE_ARGS, "build", "--mode", "client"]);
 	await run(viteBin, [...VITE_ARGS, "build"]);
 	await run("rm", ["-rf", join(projectRoot, "dist")]);
 	await run("cp", ["-r", join(packageRoot, "dist"), join(projectRoot, "dist")]);
 };
 
-const runSequence = async () => {
+const runSequence = async (): Promise<void> => {
 	if (command === "dev") {
 		await run(viteBin, [...VITE_ARGS, "--port", DEV_PORT]);
 		return;
@@ -79,7 +78,7 @@ const runSequence = async () => {
 	process.exit(1);
 };
 
-runSequence().catch((err) => {
+runSequence().catch((err: Error) => {
 	console.error(err.message);
 	process.exit(1);
 });
