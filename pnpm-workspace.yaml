@@ -1,2 +1,9 @@
 overrides:
   dev-blog: link:../dev-blog
+
+# Supply chain security: only resolve package versions that have been public for
+# at least 7 days (10080 minutes), giving time for malicious releases to be caught.
+# Add entries to minimumReleaseAgeExclude to bypass the cooldown for specific versions.
+minimumReleaseAge: 10080
+# minimumReleaseAgeExclude:
+#   - some-package@1.2.3
