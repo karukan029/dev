@@ -12,7 +12,7 @@ A modern web application built with HonoX and Cloudflare Workers.
 
 ## Prerequisites
 
-- Node.js 22.19.0 (managed by Volta)
+- Node.js 24.22.1 (managed by Volta)
 - pnpm
 
 ## Setup
