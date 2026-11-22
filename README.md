@@ -18,8 +18,8 @@ See [PUBLISHING.md](./PUBLISHING.md) for details.
 
 ## Prerequisites
 
-- Node.js 24.22.1 (pinned in `.mise.toml` / managed by [mise](https://mise.jdx.dev/) or [Volta](https://volta.sh/))
-- pnpm 10.16+ (the repo enables the `minimumReleaseAge` supply-chain safeguard, which requires pnpm >= 10.16)
+- [mise](https://mise.jdx.dev/) - Node.js and pnpm versions are pinned in `.mise.toml`; run `mise install` to set them up
+  (the repo enables the `minimumReleaseAge` supply-chain safeguard, which requires pnpm >= 10.16)
 
 ## Setup
 
