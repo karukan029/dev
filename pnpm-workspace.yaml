@@ -7,3 +7,9 @@ overrides:
 minimumReleaseAge: 10080
 # minimumReleaseAgeExclude:
 #   - some-package@1.2.3
+
+allowBuilds:
+  esbuild: true
+  sharp: true
+  workerd: true
+  
