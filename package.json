@@ -1,6 +1,6 @@
 {
 	"name": "@karukan029/dev",
-	"version": "0.0.1-alpha.22",
+	"version": "0.0.1-alpha.23",
 	"repository": "https://github.com/karukan029/dev.git",
 	"publishConfig": {
     	"registry": "https://npm.pkg.github.com"
